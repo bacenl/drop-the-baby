@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ds4gsxac0h7lp"]
+[gd_scene load_steps=0 format=3 uid="uid://ds4gsxac0h7lp"]
 
 [node name="MainMenuOverlay" type="Control"]
 layout_mode = 3

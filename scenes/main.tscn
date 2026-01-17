@@ -1,16 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3g0qyike107j"]
+[gd_scene load_steps=9 format=3 uid="uid://b3g0qyike107j"]
 
-[ext_resource type="Texture2D" uid="uid://b6u8udbji3s4" path="res://resources/art/circle.png" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://bn1etx4bqluq7" path="res://objects/duck.tscn" id="2_0wfyh"]
 [ext_resource type="Script" uid="uid://sj875uyeejeo" path="res://singletons/baby_factory.gd" id="3_sugp2"]
-[ext_resource type="Material" uid="uid://bepuqreckh1uv" path="res://resources/shaders/background_material.tres" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://txc6ek7esvla" path="res://scenes/earth.gd" id="3_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://dky430t3e3gn" path="res://resources/art/earth/sea.PNG" id="3_tefeu"]
+[ext_resource type="Script" uid="uid://csjnomeqv1vqw" path="res://scenes/zone.gd" id="4_jyhfs"]
+[ext_resource type="Material" uid="uid://bepuqreckh1uv" path="res://resources/shaders/background_material.tres" id="5_ballz"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
 radius = 515.0
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tbgi4"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D2" type="Node2D"]
 
 [node name="Duck" parent="." instance=ExtResource("2_0wfyh")]
 position = Vector2(150, 0)
@@ -24,22 +26,25 @@ script = ExtResource("3_sugp2")
 [node name="Earth" type="Node2D" parent="."]
 
 [node name="Circle" type="Sprite2D" parent="Earth"]
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("1_o5qli")
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("3_tefeu")
 
 [node name="Whole" type="Area2D" parent="Earth" groups=["earth"]]
+script = ExtResource("3_tbgi4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Earth/Whole"]
 scale = Vector2(0.15, 0.15)
 shape = SubResource("CircleShape2D_0xm2m")
 
 [node name="Zone1" type="Area2D" parent="Earth" groups=["zones"]]
+script = ExtResource("4_jyhfs")
 
 [node name="CollisionZone1" type="CollisionPolygon2D" parent="Earth/Zone1"]
 scale = Vector2(0.15, 0.15)
 polygon = PackedVector2Array(-4.347826, -517.3913, -4.347826, 0, 513.04346, 0, 495.65216, -130.43478, 443.47824, -256.52173, 356.52173, -369.56522, 252.1739, -447.82608, 130.43478, -495.65216)
 
 [node name="Zone2" type="Area2D" parent="Earth" groups=["zones"]]
+script = ExtResource("4_jyhfs")
 
 [node name="CollisionZone2" type="CollisionPolygon2D" parent="Earth/Zone2"]
 rotation = 1.5707964
@@ -47,6 +52,7 @@ scale = Vector2(0.15, 0.15)
 polygon = PackedVector2Array(-4.347826, -517.3913, -4.347826, 0, 513.04346, 0, 495.65216, -130.43478, 443.47824, -256.52173, 356.52173, -369.56522, 252.1739, -447.82608, 130.43478, -495.65216)
 
 [node name="Zone3" type="Area2D" parent="Earth" groups=["zones"]]
+script = ExtResource("4_jyhfs")
 
 [node name="CollisionZone3" type="CollisionPolygon2D" parent="Earth/Zone3"]
 rotation = -3.1415925
@@ -54,6 +60,7 @@ scale = Vector2(0.15, 0.15)
 polygon = PackedVector2Array(-4.347826, -517.3913, -4.347826, 0, 513.04346, 0, 495.65216, -130.43478, 443.47824, -256.52173, 356.52173, -369.56522, 252.1739, -447.82608, 130.43478, -495.65216)
 
 [node name="Zone4" type="Area2D" parent="Earth" groups=["zones"]]
+script = ExtResource("4_jyhfs")
 
 [node name="CollisionZone4" type="CollisionPolygon2D" parent="Earth/Zone4"]
 rotation = -1.5707964
@@ -64,7 +71,7 @@ polygon = PackedVector2Array(-4.347826, -517.3913, -4.347826, 0, 513.04346, 0, 4
 layer = -1
 
 [node name="TextureRect" type="TextureRect" parent="BackgroundCanvas"]
-material = ExtResource("4_jyhfs")
+material = ExtResource("5_ballz")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
