@@ -33,6 +33,7 @@ var rng = RandomNumberGenerator.new()
 
 var is_burning: bool = false
 var burn_material: ShaderMaterial
+var is_resolved: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -107,37 +108,41 @@ func _sample_line_texture() -> void:
 
 
 func _success() -> void:
-
+	if is_resolved:
+		return
+	is_resolved = true
 	Global.baby_success.emit()
 	is_falling = false
 	if is_collected:
-		_reparent_to_earth()
-		_spawn_effect(BabyEffect.BabyOutcomes.Good)
+		_reparent_to_earth.call_deferred()
+		_spawn_effect.call_deferred(BabyEffect.BabyOutcomes.Good)
 	else:
-		queue_free()
+		queue_free.call_deferred()
 
 
 func _lost() -> void:
+	if is_resolved:
+		return
+	is_resolved = true
 	Global.baby_lost.emit()
 	is_falling = false
 	if is_collected:
-		_reparent_to_earth()
+		_reparent_to_earth.call_deferred()
 		if current_zone == 0:
-			_spawn_effect(BabyEffect.BabyOutcomes.Sea)
+			_spawn_effect.call_deferred(BabyEffect.BabyOutcomes.Sea)
 		else:
-			_spawn_effect(BabyEffect.BabyOutcomes.Bad)
+			_spawn_effect.call_deferred(BabyEffect.BabyOutcomes.Bad)
 	elif is_burning and burn_material:
-		_reparent_to_earth()
+		_reparent_to_earth.call_deferred()
 		burn_material.set_shader_parameter("y_position_2", 0.0)
 		_fade_out()
 	else:
-		queue_free()
+		queue_free.call_deferred()
 
 
 func _spawn_effect(outcome: BabyEffect.BabyOutcomes) -> void:
 	var effect = BabyEffect.spawn_baby_effect(outcome, self)
-	effect.global_position = global_position
-	get_parent().add_child(effect)
+	add_child(effect)
 
 
 func _reparent_to_earth() -> void:

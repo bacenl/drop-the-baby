@@ -39,6 +39,11 @@ func _ready() -> void:
 	animation_player.play("baby_effect_animation")
 
 
+func _process(_delta: float) -> void:
+	if linked_baby and is_instance_valid(linked_baby):
+		global_position = linked_baby.global_position
+
+
 func _on_animation_finished(_anim_name: String) -> void:
 	if linked_baby:
 		linked_baby.queue_free()

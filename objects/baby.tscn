@@ -7,8 +7,7 @@
 [ext_resource type="Material" uid="uid://cb1g6eudnmxra" path="res://resources/shaders/baby_trail_galactic_material.tres" id="4_uxe4x"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uxe4x"]
-radius = 15.0
-height = 50.0
+height = 40.0
 
 [node name="Baby" type="Node2D"]
 material = ExtResource("1_gepct")

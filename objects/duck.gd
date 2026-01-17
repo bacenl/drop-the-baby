@@ -34,8 +34,6 @@ func _physics_process(delta: float) -> void:
 	if not Global.is_playing():
 		return
 	_handle_input(delta)
-	print("Score: ", Global.score)
-	print("Rep: ", Global.reputation)
 
 	rotation = theta_rad
 	theta_rad += curr_speed / curr_radius # omega = v/r, theta = theta_0 + d_omega * t
