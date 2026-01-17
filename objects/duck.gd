@@ -52,13 +52,16 @@ func _drop_baby() -> void:
 		return
 
 	var baby = baby_array.pop_front()
+	var global_pos = baby.global_position
 	self.remove_child(baby)
 	self.get_parent().add_child(baby)
 	baby.remove_from_group("duck")
 
 	baby.is_falling = true
+	baby.fall_direction = Earth.CENTER - global_pos
 
 	_update_baby_positions()
+	baby.position = global_pos
 
 
 func _update_baby_positions() -> void:
