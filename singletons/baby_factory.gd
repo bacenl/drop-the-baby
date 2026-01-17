@@ -1,6 +1,6 @@
 extends Node2D
 
-var DEFAULT_SPAWN_INTERVAL: float = 5
+var DEFAULT_SPAWN_INTERVAL: float = 3
 var baby_resource = preload("res://objects/baby.tscn")
 var MIN_SPAWN_RADIUS: float = 350
 

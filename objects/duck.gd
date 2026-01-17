@@ -1,10 +1,11 @@
 class_name Duck
 extends Node2D
 
-var FLYING_RADIUS: float = 150
-var BASE_SPEED: float = 1
-var FAST_SPEED: float = 5
+var BASE_SPEED: float = 6
 var BABY_CAPACITY: float = 5
+var VERTICAL_ACCELERATION: float = 200
+var MIN_RADIUS: float = 150
+var MAX_RADIUS: float = 250
 
 var curr_radius: float
 var curr_speed: float
@@ -17,51 +18,50 @@ var baby_array: Array[Baby]= []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	curr_radius = FLYING_RADIUS
+	curr_radius = MAX_RADIUS
 	curr_speed = BASE_SPEED
-	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	_handle_input()
+	_handle_input(delta)
 
 	rotation = theta_rad + PI/2 
-	theta_rad += curr_speed * delta
+	theta_rad += curr_speed / curr_radius # omega = v/r, theta = theta_0 + d_omega * t
 	position.x = curr_radius * cos(theta_rad)
 	position.y = curr_radius * sin(theta_rad)
-	pass
-
-
-func _set_speed(new_speed: float) -> void:
-	curr_speed = new_speed
 
 
 func add_baby(baby: Baby) -> void:
 	if baby_array.size() >= BABY_CAPACITY:
 		return
+
+	baby_array.append(baby)
 	baby.get_parent().remove_child(baby)
 	self.add_child(baby)
 	baby.add_to_group("duck")
-	baby_array.append(baby)
 
 	baby.is_falling = false
 	baby.is_collected = true
 
 	_update_baby_positions()
-	print(baby_array)
 
 
 func _drop_baby() -> void:
 	if baby_array.is_empty():
 		return
+
 	var baby = baby_array.pop_front()
+	var global_pos = baby.global_position
 	self.remove_child(baby)
 	self.get_parent().add_child(baby)
 	baby.remove_from_group("duck")
+
 	baby.is_falling = true
+	baby.fall_direction = Earth.CENTER - global_pos
+
 	_update_baby_positions()
-	print(baby_array)
+	baby.position = global_pos
 
 
 func _update_baby_positions() -> void:
@@ -69,12 +69,11 @@ func _update_baby_positions() -> void:
 		baby_array[i].position = Vector2(local_x_offset_array[i],local_y_offset_array[i])
 
 
-func _handle_input() -> void:
+func _handle_input(delta: float) -> void:
 	if Input.is_action_pressed("accelerate"):
-		_set_speed(FAST_SPEED)
+		curr_radius = clamp(curr_radius - VERTICAL_ACCELERATION * delta, MIN_RADIUS, MAX_RADIUS)
 	else:
-		_set_speed(BASE_SPEED)
+		curr_radius = clamp(curr_radius + VERTICAL_ACCELERATION * delta, MIN_RADIUS, MAX_RADIUS)
 
 	if Input.is_action_just_pressed("drop"):
 		_drop_baby()
-		print("drop")
