@@ -25,7 +25,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print(curr_radius)
+	#print(curr_radius)
 	_handle_input(delta)
 
 	rotation = theta_rad + PI/2 
@@ -68,11 +68,11 @@ func _update_baby_positions() -> void:
 
 func _handle_input(delta: float) -> void:
 	if Input.is_action_pressed("accelerate"):
-		print("moving down")
+		#print("moving down")
 		curr_radius = clamp(curr_radius - VERTICAL_ACCELERATION * delta, MIN_RADIUS, MAX_RADIUS)
 	else:
 		curr_radius = clamp(curr_radius + VERTICAL_ACCELERATION * delta, MIN_RADIUS, MAX_RADIUS)
 
 	if Input.is_action_just_pressed("drop"):
 		_drop_baby()
-		print("drop")
+		#print("drop")

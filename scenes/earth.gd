@@ -7,4 +7,4 @@ func score_baby(baby: Baby) -> void:
 		score += 1
 	else:
 		score -= 1
-	print(score)
+	print("score: " + str(score))

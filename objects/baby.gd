@@ -56,6 +56,6 @@ func _on_area_entered(area: Area2D):
 	# If collected, and if correct zone, score
 	# else, die
 	if area.is_in_group("earth") and in_correct_zone:
-		area.score_baby()
+		area.score_baby(self)
 		_kill_self()
 		return
