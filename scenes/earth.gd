@@ -1,6 +1,6 @@
 extends Node2D
 
-var ROTATION_SPEED = 0.0003
+var ROTATION_SPEED = 0.05
 var theta_rad = 0;
 
 # Called when the node enters the scene tree for the first time.
