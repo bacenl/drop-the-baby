@@ -1,7 +1,7 @@
 [gd_scene load_steps=39 format=3 uid="uid://b3g0qyike107j"]
 
 [ext_resource type="PackedScene" uid="uid://bn1etx4bqluq7" path="res://objects/duck.tscn" id="2_0wfyh"]
-[ext_resource type="Script" uid="uid://demwxuajaxmut" path="res://scenes/main_camera.gd" id="2_trceg"]
+[ext_resource type="Script" path="res://scenes/main_camera.gd" id="2_trceg"]
 [ext_resource type="Script" uid="uid://sj875uyeejeo" path="res://singletons/baby_factory.gd" id="3_sugp2"]
 [ext_resource type="Script" uid="uid://dns2bfa3j3fhd" path="res://scenes/earth.gd" id="3_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://dky430t3e3gn" path="res://resources/art/earth/sea.PNG" id="3_tefeu"]
@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://xgjtpk8u1yho" path="res://resources/art/earth/IMG_3853.PNG" id="8_jbj1t"]
 [ext_resource type="Material" uid="uid://c2g3a6ocr75gu" path="res://resources/shaders/preset_colors/color_3.tres" id="9_jscy8"]
 [ext_resource type="Texture2D" uid="uid://c5wgeypditj3d" path="res://resources/art/earth/IMG_3854.PNG" id="9_muem4"]
-[ext_resource type="Script" path="res://objects/earth.gd" id="10_trceg"]
+[ext_resource type="Script" uid="uid://seuxatge0p10" path="res://objects/earth.gd" id="10_trceg"]
 [ext_resource type="Material" uid="uid://6mp4j8vmnlpm" path="res://resources/shaders/preset_colors/color_4.tres" id="11_yc10j"]
 [ext_resource type="PackedScene" uid="uid://ds4gsxac0h7lp" path="res://scenes/main_menu.tscn" id="13_ballz"]
 [ext_resource type="Material" uid="uid://dhgi6bsrrsrcp" path="res://resources/shaders/preset_colors/color_5.tres" id="13_y6deb"]

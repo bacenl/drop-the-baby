@@ -31,6 +31,10 @@ signal capacity_changed(count: int)
 enum GameState { MAIN_MENU, PLAYING, PAUSED, GAME_OVER }
 var current_state: GameState = GameState.MAIN_MENU
 
+# Audio
+var main_menu_audio = load("res://resources/sounds/bgm/menu.mp3")
+var in_game_audio = load("res://resources/sounds/bgm/in_game.mp3")
+
 # Control variables (read-only, updated by state functions)
 var game_is_started: bool = false
 var game_is_paused: bool = false
@@ -51,6 +55,7 @@ var reputation: int
 func _ready() -> void:
 	_load_high_score()
 	bind_callbacks()
+
 
 func bind_callbacks() -> void:
 	game_started.connect(_on_game_started)
@@ -93,6 +98,9 @@ func go_to_main_menu() -> void:
 
 # Signal callbacks
 func _on_game_started() -> void:
+	Audio.audio_stream_player.stream = in_game_audio
+	Audio.audio_stream_player.play()
+
 	score = 0
 	reputation = MAX_REPUTATION
 	current_state = GameState.PLAYING
@@ -101,6 +109,9 @@ func _on_game_started() -> void:
 
 
 func _on_game_ended(final_score: int) -> void:
+	Audio.audio_stream_player.stream = main_menu_audio
+	Audio.audio_stream_player.play()
+
 	if final_score >= 0:
 		score = final_score
 
