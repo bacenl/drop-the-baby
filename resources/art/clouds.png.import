@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cn3u05pnbtqay"
-path="res://.godot/imported/logo_duck.PNG-87afb9975546c993dc37d556c15f9ece.ctex"
+uid="uid://cvss1s38nw0oj"
+path="res://.godot/imported/clouds.png-523022ade8bc1c7cd9ae9e00f6f37884.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/art/logo_duck.PNG"
-dest_files=["res://.godot/imported/logo_duck.PNG-87afb9975546c993dc37d556c15f9ece.ctex"]
+source_file="res://resources/art/clouds.png"
+dest_files=["res://.godot/imported/clouds.png-523022ade8bc1c7cd9ae9e00f6f37884.ctex"]
 
 [params]
 

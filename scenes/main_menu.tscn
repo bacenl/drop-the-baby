@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ds4gsxac0h7lp"]
 
 [ext_resource type="Script" uid="uid://cnfla0fe3lnx7" path="res://scenes/main_menu_overlay.gd" id="1_l6cm7"]
-[ext_resource type="Texture2D" uid="uid://cy7nyu4burku1" path="res://resources/art/logo_baby.PNG" id="2_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://b67ewunut4mkb" path="res://resources/art/logo_baby.png" id="2_ekxnf"]
 
 [sub_resource type="Animation" id="Animation_ekxnf"]
 length = 0.001
@@ -106,15 +106,45 @@ horizontal_alignment = 1
 
 [node name="LogoBaby" type="Sprite2D" parent="ControlsGroup/HBoxContainer/Middle"]
 position = Vector2(196, 96)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_ekxnf")
 
-[node name="Right" type="VBoxContainer" parent="ControlsGroup/HBoxContainer"]
+[node name="Right" type="Control" parent="ControlsGroup/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 2
+
+[node name="Instructions" type="Label" parent="ControlsGroup/HBoxContainer/Right"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -329.0
+offset_top = -72.5
+offset_bottom = 72.5
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+text = "Press <Space> to dip down
+Press <D> to drop baby
+Catch babies and deliver
+them to their home country!"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="Authors" type="Label" parent="ControlsGroup/HBoxContainer/Right"]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -215.0
+offset_top = -34.0
+grow_horizontal = 0
+grow_vertical = 0
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 24

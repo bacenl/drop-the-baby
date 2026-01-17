@@ -8,6 +8,19 @@ uniform vec4 color2 : source_color = vec4(1.0, 0.2, 0.0, 1.0); // Orange/red at 
 uniform float y_position_1 : hint_range(0.0, 1.0) = 1.0; // Bottom
 uniform float y_position_2 : hint_range(0.0, 1.0) = 0.5; // Top
 
+// Tint parameters (from baby_tint_shader)
+uniform float original_color_weight : hint_range(0.0, 1.0) = 0.5;
+uniform vec4 tint_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform float tolerance : hint_range(0.0, 1.0) = 0.1;
+
+// Blacklisted colors (up to 6)
+uniform vec3 blacklist_color_1 : source_color = vec3(0.0, 0.0, 0.0);
+uniform vec3 blacklist_color_2 : source_color = vec3(0.0, 0.0, 0.0);
+uniform vec3 blacklist_color_3 : source_color = vec3(0.0, 0.0, 0.0);
+uniform vec3 blacklist_color_4 : source_color = vec3(0.0, 0.0, 0.0);
+uniform vec3 blacklist_color_5 : source_color = vec3(0.0, 0.0, 0.0);
+uniform vec3 blacklist_color_6 : source_color = vec3(0.0, 0.0, 0.0);
+
 // Wiggle parameters
 uniform float wiggle_speed : hint_range(0.0, 20.0) = 1.0;
 uniform float wiggle_strength : hint_range(0.0, 0.5) = 0.1;
@@ -56,6 +69,25 @@ float fbm(vec2 p) {
     return value;
 }
 
+bool is_blacklisted(vec3 color) {
+    if (distance(color, blacklist_color_1) <= tolerance) return true;
+    if (distance(color, blacklist_color_2) <= tolerance) return true;
+    if (distance(color, blacklist_color_3) <= tolerance) return true;
+    if (distance(color, blacklist_color_4) <= tolerance) return true;
+    if (distance(color, blacklist_color_5) <= tolerance) return true;
+    if (distance(color, blacklist_color_6) <= tolerance) return true;
+    return false;
+}
+
+vec4 apply_tint(vec4 original) {
+    if (is_blacklisted(original.rgb)) {
+        return original;
+    } else {
+        vec3 blended = original.rgb * original_color_weight + tint_color.rgb * (1.0 - original_color_weight);
+        return vec4(blended, original.a);
+    }
+}
+
 void fragment() {
     // Sample texture without any deformation
     vec4 tex_color = texture(TEXTURE, UV);
@@ -65,9 +97,9 @@ void fragment() {
     edge_noise += noise(vec2(UV.x * 35.0 + 100.0, TIME * spark_speed * 1.5)) * spark_intensity * 0.5;
     float noisy_top = y_position_2 - edge_noise;
 
-    // Above the noisy top edge, keep original texture
+    // Above the noisy top edge, apply tint to original texture
     if (UV.y < noisy_top) {
-        COLOR = tex_color;
+        COLOR = apply_tint(tex_color);
     } else {
         // Calculate wiggle for the color gradient
         float wiggle = sin(UV.y * wiggle_frequency + TIME * wiggle_speed) * wiggle_strength;

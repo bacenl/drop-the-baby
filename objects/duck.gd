@@ -60,6 +60,7 @@ func add_baby(baby: Baby) -> void:
 
 	baby.is_falling = false
 	baby.is_collected = true
+	baby.reset_burn()
 
 	_update_baby_positions()
 	Global.update_next_duck.emit(get_next_baby_target())

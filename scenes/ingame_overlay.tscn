@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ba32hbbx2a0lm"]
+[gd_scene load_steps=6 format=3 uid="uid://ba32hbbx2a0lm"]
 
 [ext_resource type="Script" uid="uid://3354cl177bs0" path="res://scenes/ingame_overlay.gd" id="1_gumgw"]
 [ext_resource type="Texture2D" uid="uid://mk504a8671sg" path="res://resources/art/reputation_thumb.png" id="2_2qsp4"]
 [ext_resource type="Material" uid="uid://cekchnvy84rs0" path="res://resources/shaders/preset_colors/color_ui.tres" id="2_6uvmq"]
+[ext_resource type="Texture2D" uid="uid://bqcatyhrp8jr6" path="res://resources/art/heart.png" id="2_fce62"]
 [ext_resource type="Texture2D" uid="uid://dnv6tmda4xwkh" path="res://resources/art/duck_baby.png" id="4_fce62"]
 
 [node name="IngameOverlay" type="MarginContainer"]
@@ -25,24 +26,21 @@ layout_mode = 2
 alignment = 2
 
 [node name="Thumb1" type="TextureRect" parent="TopRight/Reputation"]
-material = ExtResource("2_6uvmq")
 custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
-texture = ExtResource("2_2qsp4")
+texture = ExtResource("2_fce62")
 expand_mode = 4
 
 [node name="Thumb2" type="TextureRect" parent="TopRight/Reputation"]
-material = ExtResource("2_6uvmq")
 custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
-texture = ExtResource("2_2qsp4")
+texture = ExtResource("2_fce62")
 expand_mode = 4
 
 [node name="Thumb3" type="TextureRect" parent="TopRight/Reputation"]
-material = ExtResource("2_6uvmq")
 custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
-texture = ExtResource("2_2qsp4")
+texture = ExtResource("2_fce62")
 expand_mode = 4
 
 [node name="CurrentScoreWrapper" type="HBoxContainer" parent="TopRight"]
@@ -50,11 +48,11 @@ layout_mode = 2
 alignment = 2
 
 [node name="Placeholder" type="TextureRect" parent="TopRight/CurrentScoreWrapper"]
+material = ExtResource("2_6uvmq")
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-texture = ExtResource("4_fce62")
+texture = ExtResource("2_2qsp4")
 expand_mode = 3
-flip_h = true
 
 [node name="PlaceholderText" type="Label" parent="TopRight/CurrentScoreWrapper"]
 layout_mode = 2
