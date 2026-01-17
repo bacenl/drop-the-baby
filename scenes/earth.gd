@@ -10,5 +10,4 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	theta_rad += delta
-	rotation -= theta_rad * ROTATION_SPEED # Counter-clockwise
+	rotation -= delta * ROTATION_SPEED # Counter-clockwise
