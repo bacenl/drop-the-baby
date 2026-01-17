@@ -1,9 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://b3g0qyike107j"]
+[gd_scene load_steps=38 format=3 uid="uid://b3g0qyike107j"]
 
 [ext_resource type="PackedScene" uid="uid://bn1etx4bqluq7" path="res://objects/duck.tscn" id="2_0wfyh"]
 [ext_resource type="Script" uid="uid://demwxuajaxmut" path="res://scenes/main_camera.gd" id="2_trceg"]
 [ext_resource type="Script" uid="uid://sj875uyeejeo" path="res://singletons/baby_factory.gd" id="3_sugp2"]
-[ext_resource type="Script" path="res://scenes/earth.gd" id="3_tbgi4"]
+[ext_resource type="Script" uid="uid://dns2bfa3j3fhd" path="res://scenes/earth.gd" id="3_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://dky430t3e3gn" path="res://resources/art/earth/sea.PNG" id="3_tefeu"]
 [ext_resource type="Texture2D" uid="uid://bni8yfqgipqhh" path="res://resources/art/earth/IMG_3849.PNG" id="4_eb6dy"]
 [ext_resource type="Script" uid="uid://csjnomeqv1vqw" path="res://objects/zone.gd" id="4_jyhfs"]
@@ -16,9 +16,9 @@
 [ext_resource type="Texture2D" uid="uid://xgjtpk8u1yho" path="res://resources/art/earth/IMG_3853.PNG" id="8_jbj1t"]
 [ext_resource type="Material" uid="uid://c2g3a6ocr75gu" path="res://resources/shaders/preset_colors/color_3.tres" id="9_jscy8"]
 [ext_resource type="Texture2D" uid="uid://c5wgeypditj3d" path="res://resources/art/earth/IMG_3854.PNG" id="9_muem4"]
-[ext_resource type="Script" path="res://objects/earth.gd" id="10_trceg"]
+[ext_resource type="Script" uid="uid://seuxatge0p10" path="res://objects/earth.gd" id="10_trceg"]
 [ext_resource type="Material" uid="uid://6mp4j8vmnlpm" path="res://resources/shaders/preset_colors/color_4.tres" id="11_yc10j"]
-[ext_resource type="PackedScene" uid="uid://ds4gsxac0h7lp" path="res://scenes/main_menu.tscn" id="13_ballz"]
+[ext_resource type="PackedScene" path="res://scenes/main_menu.tscn" id="13_ballz"]
 [ext_resource type="Material" uid="uid://dhgi6bsrrsrcp" path="res://resources/shaders/preset_colors/color_5.tres" id="13_y6deb"]
 [ext_resource type="PackedScene" uid="uid://cwad7yvvutr8j" path="res://scenes/ingame_overlay.tscn" id="14_ingame"]
 [ext_resource type="Material" uid="uid://bg4oeqhe3t6o8" path="res://resources/shaders/preset_colors/color_6.tres" id="15_og1vs"]
@@ -26,12 +26,56 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
 radius = 515.0
 
+[sub_resource type="PrismMesh" id="PrismMesh_yc10j"]
+
+[sub_resource type="Gradient" id="Gradient_jscy8"]
+colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 0.49803922)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pm3ni"]
+gradient = SubResource("Gradient_jscy8")
+fill_from = Vector2(1, 0.35514018)
+
+[sub_resource type="Gradient" id="Gradient_yc10j"]
+colors = PackedColorArray(1, 0.7490196, 0, 0, 1, 0.7490196, 0, 0.49803922)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jscy8"]
+gradient = SubResource("Gradient_yc10j")
+fill_from = Vector2(1, 0.35514018)
+
+[sub_resource type="Gradient" id="Gradient_pm3ni"]
+colors = PackedColorArray(0, 0.972549, 0.2, 0, 0, 0.972549, 0.2, 0.49803922)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y6deb"]
+gradient = SubResource("Gradient_pm3ni")
+fill_from = Vector2(1, 0.35514018)
+
+[sub_resource type="Gradient" id="Gradient_y6deb"]
+colors = PackedColorArray(0, 0.96862745, 1, 0, 0, 0.96862745, 1, 0.49803922)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_og1vs"]
+gradient = SubResource("Gradient_y6deb")
+fill_from = Vector2(1, 0.35514018)
+
+[sub_resource type="Gradient" id="Gradient_2wyq8"]
+colors = PackedColorArray(0.47058824, 0.15294118, 0.69411767, 0, 0.99262935, 0.92056286, 0.9999998, 0.49803922)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vxglm"]
+gradient = SubResource("Gradient_2wyq8")
+fill_from = Vector2(1, 0.35514018)
+
+[sub_resource type="Gradient" id="Gradient_og1vs"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.49803922)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2wyq8"]
+gradient = SubResource("Gradient_og1vs")
+fill_from = Vector2(1, 0.35514018)
+
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tbgi4"]
 
 [node name="MainSceneRoot" type="Node2D"]
 
 [node name="Duck" parent="." instance=ExtResource("2_0wfyh")]
-position = Vector2(0, -150)
+position = Vector2(0, -149)
 scale = Vector2(0.6, 0.6)
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -84,7 +128,7 @@ script = ExtResource("4_jyhfs")
 
 [node name="CollisionZone1" type="CollisionPolygon2D" parent="Earth/Zone1"]
 scale = Vector2(0.15, 0.15)
-polygon = PackedVector2Array(560, -173.33333, -4.347826, 0, 553.3333, 146.66666)
+polygon = PackedVector2Array(560, -133.33333, -4.347826, 0, 553.3333, 146.66666)
 
 [node name="Zone2" type="Area2D" parent="Earth" groups=["zones"]]
 script = ExtResource("4_jyhfs")
@@ -92,7 +136,7 @@ script = ExtResource("4_jyhfs")
 [node name="CollisionZone2" type="CollisionPolygon2D" parent="Earth/Zone2"]
 rotation = 1.5707964
 scale = Vector2(0.15, 0.15)
-polygon = PackedVector2Array(-386.6667, -439.99997, -4.347826, 0, -106.66669, -566.6666)
+polygon = PackedVector2Array(-386.6667, -439.99997, -4.347826, 0, -133.33336, -560)
 
 [node name="Zone3" type="Area2D" parent="Earth" groups=["zones"]]
 script = ExtResource("4_jyhfs")
@@ -100,7 +144,7 @@ script = ExtResource("4_jyhfs")
 [node name="CollisionZone3" type="CollisionPolygon2D" parent="Earth/Zone3"]
 rotation = -3.1415925
 scale = Vector2(0.15, 0.15)
-polygon = PackedVector2Array(146.66673, 520, -4.347826, 0, -273.33325, 480.00003, -53.33325, 553.3333)
+polygon = PackedVector2Array(180.00008, 513.3333, -4.347826, 0, -273.33325, 480.00003, -53.33325, 553.3333)
 
 [node name="Zone4" type="Area2D" parent="Earth" groups=["zones"]]
 script = ExtResource("4_jyhfs")
@@ -125,6 +169,56 @@ script = ExtResource("4_jyhfs")
 rotation = -1.5707964
 scale = Vector2(0.15, 0.15)
 polygon = PackedVector2Array(400.00003, -373.33328, -4.347826, 0, -33.33331, -560, 180.00003, -526.6666)
+
+[node name="Highlights" type="Node2D" parent="Earth"]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Earth/Highlights"]
+z_index = -1
+position = Vector2(78.93244, 2.3004527)
+rotation = 1.5865043
+scale = Vector2(81.19095, 140.3165)
+mesh = SubResource("PrismMesh_yc10j")
+texture = SubResource("GradientTexture2D_pm3ni")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="Earth/Highlights"]
+z_index = -1
+position = Vector2(68.27189, -35.422855)
+rotation = 1.097812
+scale = Vector2(76.55382, 140.3165)
+mesh = SubResource("PrismMesh_yc10j")
+texture = SubResource("GradientTexture2D_jscy8")
+
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="Earth/Highlights"]
+z_index = -1
+position = Vector2(6.4456863, -70.26847)
+rotation = 0.10471976
+scale = Vector2(125.41157, 140.3165)
+mesh = SubResource("PrismMesh_yc10j")
+texture = SubResource("GradientTexture2D_y6deb")
+
+[node name="MeshInstance2D4" type="MeshInstance2D" parent="Earth/Highlights"]
+z_index = -1
+position = Vector2(8.5058565, 71.15231)
+rotation = -3.2253685
+scale = Vector2(163.6938, 139.0464)
+mesh = SubResource("PrismMesh_yc10j")
+texture = SubResource("GradientTexture2D_og1vs")
+
+[node name="MeshInstance2D5" type="MeshInstance2D" parent="Earth/Highlights"]
+z_index = -1
+position = Vector2(-60.300915, 42.209473)
+rotation = -2.1991148
+scale = Vector2(105.693634, 140.31647)
+mesh = SubResource("PrismMesh_yc10j")
+texture = SubResource("GradientTexture2D_vxglm")
+
+[node name="MeshInstance2D6" type="MeshInstance2D" parent="Earth/Highlights"]
+z_index = -1
+position = Vector2(-65.506226, -26.356623)
+rotation = -1.2217305
+scale = Vector2(129.1915, 140.31648)
+mesh = SubResource("PrismMesh_yc10j")
+texture = SubResource("GradientTexture2D_2wyq8")
 
 [node name="BackgroundCanvas" type="CanvasLayer" parent="."]
 layer = -1
