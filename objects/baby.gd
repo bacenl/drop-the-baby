@@ -6,7 +6,10 @@ var CENTER: Vector2 = Vector2(0, 0)
 
 @onready
 var area2d: Area2D = $'Area2D'
+@onready
+var duck: Duck = $'../../Duck'
 
+var is_falling: bool = true
 var fall_direction: Vector2
 var fall_speed: float
 var is_collected: bool = false # To determine whether dropped into a correct zone should score
@@ -23,23 +26,21 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	position += delta * fall_direction * fall_speed
+	if is_falling:
+		position += delta * fall_direction * fall_speed
 	pass
 
-func _get_collected() -> void:
-	print("collected")
-	queue_free()
 
 func _kill_self() -> void:
 	print("deadge")
 	queue_free()
 
-func _on_area_entered(area: Area2D):
-	if area.is_in_group("duck"):
-		_get_collected()
-		return
 
+func _on_area_entered(area: Area2D):
 	if not is_collected:
+		if area.is_in_group("duck"):
+			duck.add_baby(self)
+			return
 		if area.is_in_group("earth"):
 			_kill_self()
 			return
