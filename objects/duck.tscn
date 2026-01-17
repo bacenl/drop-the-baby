@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://bn1etx4bqluq7"]
+[gd_scene load_steps=7 format=3 uid="uid://bn1etx4bqluq7"]
 
 [ext_resource type="Script" uid="uid://n0un4xs0epse" path="res://objects/duck.gd" id="1_flsqi"]
-[ext_resource type="Texture2D" uid="uid://b3krhb274e5yx" path="res://icon.svg" id="2_l0iv7"]
 [ext_resource type="SpriteFrames" uid="uid://cpgoli2c4qhsu" path="res://resources/art/duck_body_frames.tres" id="3_3egj8"]
 [ext_resource type="Material" uid="uid://b413paahptg7i" path="res://resources/shaders/outline_material.tres" id="3_ka7s4"]
 [ext_resource type="SpriteFrames" uid="uid://bxgcm4n4mlkqw" path="res://resources/art/duck_wings_sprite_frames.tres" id="4_ka7s4"]
@@ -14,10 +13,6 @@ radius = 50.0
 
 [node name="Duck" type="Node2D"]
 script = ExtResource("1_flsqi")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_l0iv7")
 
 [node name="DuckTexture" type="Sprite2D" parent="."]
 material = ExtResource("3_ka7s4")
