@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://ds4gsxac0h7lp"]
+
+[node name="MainMenuOverlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ControlsGroup" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlsGroup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="third" type="Control" parent="ControlsGroup/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Middle" type="VBoxContainer" parent="ControlsGroup/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleWrapper" type="MarginContainer" parent="ControlsGroup/HBoxContainer/Middle"]
+layout_mode = 2
+theme_override_constants/margin_top = 40
+
+[node name="Title" type="Label" parent="ControlsGroup/HBoxContainer/Middle/TitleWrapper"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "Drop the baby"
+horizontal_alignment = 1
+
+[node name="Fill" type="Control" parent="ControlsGroup/HBoxContainer/Middle"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StartWrapper" type="MarginContainer" parent="ControlsGroup/HBoxContainer/Middle"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 24
+
+[node name="Title" type="Label" parent="ControlsGroup/HBoxContainer/Middle/StartWrapper"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 36
+text = "Press <Space> to start
+Press <d> to drop off baby"
+horizontal_alignment = 1
+
+[node name="Right" type="VBoxContainer" parent="ControlsGroup/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="Authors" type="Label" parent="ControlsGroup/HBoxContainer/Right"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "By Team 45 Inches"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ControlsGroup"]
