@@ -10,6 +10,8 @@ var area2d: Area2D = $'Area2D'
 var fall_direction: Vector2
 var fall_speed: float
 var is_collected: bool = false # To determine whether dropped into a correct zone should score
+var in_correct_zone: bool = false # Secondary check if duck is dropped in correct zone
+var correct_zone: int = 1
 enum Zone {ZONE_1, ZONE_2}
 
 # Called when the node enters the scene tree for the first time.
@@ -34,7 +36,7 @@ func _kill_self() -> void:
 	print("deadge")
 	queue_free()
 
-func _on_area_entered(area: Area2D):
+func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("duck"):
 		_get_collected()
 		return
@@ -46,8 +48,14 @@ func _on_area_entered(area: Area2D):
 	
 	if area.is_in_group("zones"):
 		# check zone correctness
+		# in case collides with multiple areas
+		in_correct_zone = in_correct_zone or area.check_zone() == correct_zone
+		
+	# Handle collisions here
+	# If not collected, check against the whole earth
+	# If collected, and if correct zone, score
+	# else, die
+	if area.is_in_group("earth") and in_correct_zone:
+		area.score_baby()
+		_kill_self()
 		return
-# Handle collisions here
-# If not collected, check against the whole earth
-# If collected, and if correct zone, score
-# else, die
