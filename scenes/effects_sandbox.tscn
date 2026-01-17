@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cvfq3rbvtqy45"]
+[gd_scene load_steps=11 format=3 uid="uid://cvfq3rbvtqy45"]
 
 [ext_resource type="Material" uid="uid://jilpmnl5mf46" path="res://resources/shaders/fire_material.tres" id="1_y77g5"]
 [ext_resource type="Texture2D" uid="uid://c32i1lx1fsd8i" path="res://resources/art/baby.png" id="2_7yi8r"]
 [ext_resource type="Material" uid="uid://cb1g6eudnmxra" path="res://resources/shaders/baby_trail_galactic_material.tres" id="3_q51vy"]
 [ext_resource type="Material" uid="uid://bepuqreckh1uv" path="res://resources/shaders/background_material.tres" id="4_pqobh"]
+[ext_resource type="Texture2D" uid="uid://dnv6tmda4xwkh" path="res://resources/art/duck_baby.png" id="5_7yi8r"]
+[ext_resource type="Material" uid="uid://bmgvo2ab0w2rn" path="res://resources/shaders/baby_tint_material.tres" id="5_q51vy"]
 
 [sub_resource type="Animation" id="Animation_bi4e3"]
 length = 0.001
@@ -116,3 +118,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("PlaceholderTexture2D_y77g5")
+
+[node name="BabyTint" type="Node2D" parent="."]
+position = Vector2(3, 687)
+scale = Vector2(0.3, 0.3)
+
+[node name="Sprite2D" type="Sprite2D" parent="BabyTint"]
+material = ExtResource("5_q51vy")
+texture = ExtResource("5_7yi8r")

@@ -20,16 +20,14 @@ var baby_array: Array[Baby]= []
 func _ready() -> void:
 	curr_radius = MAX_RADIUS
 	curr_speed = BASE_SPEED
-	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	#print(curr_radius)
 	_handle_input(delta)
 
 	rotation = theta_rad + PI/2 
-	theta_rad += curr_speed / curr_radius
+	theta_rad += curr_speed / curr_radius # omega = v/r, theta = theta_0 + d_omega * t
 	position.x = curr_radius * cos(theta_rad)
 	position.y = curr_radius * sin(theta_rad)
 
@@ -37,28 +35,30 @@ func _process(delta: float) -> void:
 func add_baby(baby: Baby) -> void:
 	if baby_array.size() >= BABY_CAPACITY:
 		return
+
+	baby_array.append(baby)
 	baby.get_parent().remove_child(baby)
 	self.add_child(baby)
 	baby.add_to_group("duck")
-	baby_array.append(baby)
 
 	baby.is_falling = false
 	baby.is_collected = true
 
 	_update_baby_positions()
-	print(baby_array)
 
 
 func _drop_baby() -> void:
 	if baby_array.is_empty():
 		return
+
 	var baby = baby_array.pop_front()
 	self.remove_child(baby)
 	self.get_parent().add_child(baby)
 	baby.remove_from_group("duck")
+
 	baby.is_falling = true
+
 	_update_baby_positions()
-	print(baby_array)
 
 
 func _update_baby_positions() -> void:
@@ -68,11 +68,9 @@ func _update_baby_positions() -> void:
 
 func _handle_input(delta: float) -> void:
 	if Input.is_action_pressed("accelerate"):
-		#print("moving down")
 		curr_radius = clamp(curr_radius - VERTICAL_ACCELERATION * delta, MIN_RADIUS, MAX_RADIUS)
 	else:
 		curr_radius = clamp(curr_radius + VERTICAL_ACCELERATION * delta, MIN_RADIUS, MAX_RADIUS)
 
 	if Input.is_action_just_pressed("drop"):
 		_drop_baby()
-		#print("drop")

@@ -15,4 +15,4 @@ shader_parameter/spark_intensity = 0.1
 shader_parameter/spark_speed = 5.0
 shader_parameter/color_wiggle_speed = 3.0
 shader_parameter/color_wiggle_strength = 0.2
-shader_parameter/transparency = 1.0
+shader_parameter/transparency = 0.0
