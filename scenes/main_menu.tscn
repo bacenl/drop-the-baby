@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ds4gsxac0h7lp"]
 
 [ext_resource type="Script" uid="uid://cnfla0fe3lnx7" path="res://scenes/main_menu_overlay.gd" id="1_l6cm7"]
-[ext_resource type="Texture2D" uid="uid://b67ewunut4mkb" path="res://resources/art/logo_baby.png" id="2_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://ck0shlp2g3p4e" path="res://resources/art/logo_baby.PNG" id="2_ekxnf"]
 
 [sub_resource type="Animation" id="Animation_ekxnf"]
 length = 0.001
@@ -149,6 +149,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 24
 text = "By Team 45 Inches"
+horizontal_alignment = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ControlsGroup"]
 libraries = {

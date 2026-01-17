@@ -23,6 +23,10 @@ Global="*res://singletons/global.gd"
 
 window/stretch/mode="viewport"
 
+[gui]
+
+theme/custom_font="uid://h4cg1umnj18x"
+
 [input]
 
 accelerate={

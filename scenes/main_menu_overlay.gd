@@ -15,7 +15,9 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_game_started() -> void:
-	animation_player.play("main_menu_out")
+	# Only play fade out if we're coming from the main menu
+	if modulate.a > 0:
+		animation_player.play("main_menu_out")
 
 
 func _on_return_to_main_menu() -> void:

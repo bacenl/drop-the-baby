@@ -47,7 +47,6 @@ func _on_game_started() -> void:
 
 func _on_game_ended(_final_score: int) -> void:
 	top_right.hide()
-	middle.show()
 
 	var score := Global.score
 	var high := Global.high_score
@@ -58,6 +57,12 @@ func _on_game_ended(_final_score: int) -> void:
 		high_score_label.text = "New high score!"
 	else:
 		high_score_label.text = "High Score: %d" % high
+
+	# Fade in the middle overlay
+	middle.modulate.a = 0.0
+	middle.show()
+	var tween = create_tween()
+	tween.tween_property(middle, "modulate:a", 1.0, 0.5)
 
 
 func _on_score_changed(new_score: int) -> void:

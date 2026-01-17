@@ -1,7 +1,7 @@
 class_name Baby
 extends Node2D
 
-var DEFAULT_FALL_SPEED: float = 0.3
+var DEFAULT_FALL_SPEED: float = 0.2
 
 var color_textures = [
 	preload("res://resources/shaders/preset_colors/color_1.tres"),
