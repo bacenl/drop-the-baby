@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bsb30s2kof4nu"]
+[gd_scene load_steps=4 format=3 uid="uid://cwad7yvvutr8j"]
 
 [ext_resource type="Script" uid="uid://3354cl177bs0" path="res://scenes/ingame_overlay.gd" id="1_gumgw"]
 [ext_resource type="Texture2D" uid="uid://mk504a8671sg" path="res://resources/art/reputation_thumb.png" id="2_2qsp4"]
