@@ -1,7 +1,7 @@
 class_name Baby
 extends Node2D
 
-var DEFAULT_FALL_SPEED: float = 0.2
+var DEFAULT_FALL_SPEED: float = 0.18
 
 var color_textures = [
 	preload("res://resources/shaders/preset_colors/color_1.tres"),
@@ -37,6 +37,7 @@ var is_resolved: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_to_group("babies")
 	area2d.connect("area_entered", _on_area_entered)
 
 	_set_target_zone()
@@ -167,6 +168,13 @@ func _set_burn_transparency(value: float) -> void:
 
 func _on_area_entered(area: Area2D):
 	if area.is_in_group("earth"):
+		# Check for zone overlap before deciding it's sea
+		if current_zone == 0:
+			for zone in get_tree().get_nodes_in_group("zones"):
+				if area2d.overlaps_area(zone):
+					current_zone = zone.check_zone()
+					break
+
 		if current_zone == target_zone and is_collected:
 			_success()
 			return

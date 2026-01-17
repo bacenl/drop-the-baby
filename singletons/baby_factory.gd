@@ -75,6 +75,8 @@ func _on_game_ended(_score: int) -> void:
 
 
 func _clear_all_babies() -> void:
+	for baby in get_tree().get_nodes_in_group("babies"):
+		baby.queue_free()
 	for child in get_children():
 		if child is Baby:
 			child.queue_free()
