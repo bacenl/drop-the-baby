@@ -1,7 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bn1etx4bqluq7"]
+[gd_scene load_steps=8 format=3 uid="uid://bn1etx4bqluq7"]
 
 [ext_resource type="Script" uid="uid://n0un4xs0epse" path="res://objects/duck.gd" id="1_flsqi"]
 [ext_resource type="Texture2D" uid="uid://b3krhb274e5yx" path="res://icon.svg" id="2_l0iv7"]
+[ext_resource type="SpriteFrames" uid="uid://cpgoli2c4qhsu" path="res://resources/art/duck_body_frames.tres" id="3_3egj8"]
+[ext_resource type="Material" uid="uid://b413paahptg7i" path="res://resources/shaders/outline_material.tres" id="3_ka7s4"]
+[ext_resource type="SpriteFrames" uid="uid://bxgcm4n4mlkqw" path="res://resources/art/duck_wings_sprite_frames.tres" id="4_ka7s4"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ka7s4"]
+viewport_path = NodePath("DuckTexture/SubViewport")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l0iv7"]
 radius = 34.38
@@ -12,6 +18,28 @@ script = ExtResource("1_flsqi")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_l0iv7")
+
+[node name="DuckTexture" type="Sprite2D" parent="."]
+material = ExtResource("3_ka7s4")
+texture = SubResource("ViewportTexture_ka7s4")
+
+[node name="SubViewport" type="SubViewport" parent="DuckTexture"]
+transparent_bg = true
+size = Vector2i(2048, 2048)
+
+[node name="DuckContainer" type="Node2D" parent="DuckTexture/SubViewport"]
+position = Vector2(1024, 1024)
+scale = Vector2(0.1, 0.1)
+
+[node name="AnimatedBody" type="AnimatedSprite2D" parent="DuckTexture/SubViewport/DuckContainer"]
+sprite_frames = ExtResource("3_3egj8")
+frame_progress = 0.14912806
+
+[node name="AnimatedWings" type="AnimatedSprite2D" parent="DuckTexture/SubViewport/DuckContainer"]
+sprite_frames = ExtResource("4_ka7s4")
+animation = &"fly"
+autoplay = "fly"
+frame_progress = 0.47471663
 
 [node name="Area2D" type="Area2D" parent="."]
 

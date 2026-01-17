@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cvfq3rbvtqy45"]
+[gd_scene load_steps=9 format=3 uid="uid://cvfq3rbvtqy45"]
 
 [ext_resource type="Material" uid="uid://jilpmnl5mf46" path="res://resources/shaders/fire_material.tres" id="1_y77g5"]
 [ext_resource type="Texture2D" uid="uid://c32i1lx1fsd8i" path="res://resources/art/baby.png" id="2_7yi8r"]
@@ -66,6 +66,8 @@ _data = {
 &"burn_animation": SubResource("Animation_qk5rn")
 }
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_y77g5"]
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Burn" type="Node2D" parent="."]
@@ -113,4 +115,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_7yi8r")
+texture = SubResource("PlaceholderTexture2D_y77g5")

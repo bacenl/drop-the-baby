@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b413paahptg7i"]
+
+[ext_resource type="Shader" uid="uid://cp5s2msnu127y" path="res://resources/shaders/outline_viewport.gdshader" id="1_1js24"]
+
+[resource]
+shader = ExtResource("1_1js24")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 2.000000095
+shader_parameter/samples = 16
