@@ -1,6 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://ds4gsxac0h7lp"]
+[gd_scene load_steps=7 format=3 uid="uid://ds4gsxac0h7lp"]
 
 [ext_resource type="Script" uid="uid://cnfla0fe3lnx7" path="res://scenes/main_menu_overlay.gd" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://cy7nyu4burku1" path="res://resources/art/logo_baby.PNG" id="2_ekxnf"]
+
+[sub_resource type="Animation" id="Animation_ekxnf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_l6cm7"]
 resource_name = "main_menu_in"
@@ -16,21 +32,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_ekxnf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_bqqt6"]
@@ -89,17 +90,6 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TitleWrapper" type="MarginContainer" parent="ControlsGroup/HBoxContainer/Middle"]
-layout_mode = 2
-theme_override_constants/margin_top = 40
-
-[node name="Title" type="Label" parent="ControlsGroup/HBoxContainer/Middle/TitleWrapper"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 64
-text = "Drop the baby"
-horizontal_alignment = 1
-
 [node name="Fill" type="Control" parent="ControlsGroup/HBoxContainer/Middle"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -114,6 +104,10 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 36
 text = "Press <Space> to start"
 horizontal_alignment = 1
+
+[node name="LogoBaby" type="Sprite2D" parent="ControlsGroup/HBoxContainer/Middle"]
+position = Vector2(196, 96)
+texture = ExtResource("2_ekxnf")
 
 [node name="Right" type="VBoxContainer" parent="ControlsGroup/HBoxContainer"]
 layout_mode = 2
