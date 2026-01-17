@@ -12,8 +12,8 @@ var is_falling: bool = true
 var fall_direction: Vector2
 var fall_speed: float
 var is_collected: bool = false # To determine whether dropped into a correct zone should score
-var in_correct_zone: bool = false # Secondary check if duck is dropped in correct zone
-var correct_zone: int = 1
+var current_zone: int = 0 # Secondary check if duck is dropped in correct zone
+var target_zone: int = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -37,8 +37,21 @@ func _success() -> void:
 func _lost() -> void:
 	Global.baby_lost.emit()
 	queue_free() # to replace with animations
+	if current_zone == 0:
+		# in sea
+		pass
+	else:
+		# on land
+		pass
 
 func _on_area_entered(area: Area2D):
+	if area.is_in_group("earth"):
+		if current_zone == target_zone:
+			_success()
+			return
+		_lost()
+		return
+	
 	if not is_collected:
 		if area.is_in_group("duck"):
 			duck.add_baby(self)
@@ -51,11 +64,9 @@ func _on_area_entered(area: Area2D):
 		print(area.get_groups())
 		# in case collides with multiple areas
 		print(area, area.has_method("check_zone"))
-		in_correct_zone = in_correct_zone or area.check_zone() == correct_zone
-		if in_correct_zone:
+		if current_zone == target_zone:
 			_success()
 			return
 		
-	if area.is_in_group("earth"):
-		_lost()
-		return
+		# for land animation
+		current_zone = area.check_zone()

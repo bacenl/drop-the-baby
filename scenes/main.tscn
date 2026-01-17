@@ -11,22 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://bniitpi68bgus" path="res://resources/art/earth/IMG_3852.PNG" id="7_jkv2x"]
 [ext_resource type="Texture2D" uid="uid://xgjtpk8u1yho" path="res://resources/art/earth/IMG_3853.PNG" id="8_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://c5wgeypditj3d" path="res://resources/art/earth/IMG_3854.PNG" id="9_muem4"]
+[ext_resource type="Script" uid="uid://seuxatge0p10" path="res://objects/earth.gd" id="10_trceg"]
 [ext_resource type="PackedScene" path="res://scenes/main_menu.tscn" id="13_trceg"]
-
-[sub_resource type="GDScript" id="GDScript_eb6dy"]
-script/source = "class_name Earth
-extends Node2D
-
-static var CENTER: Vector2 = Vector2(0, 0)
-var score = 0
-
-func score_baby(baby: Baby) -> void:
-	if baby.in_correct_zone:
-		score += 1
-	else:
-		score -= 1
-	print(\"score: \" + str(score))
-"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
 radius = 515.0
@@ -69,7 +55,7 @@ texture = ExtResource("8_jbj1t")
 texture = ExtResource("9_muem4")
 
 [node name="Whole" type="Area2D" parent="Earth" groups=["earth"]]
-script = SubResource("GDScript_eb6dy")
+script = ExtResource("10_trceg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Earth/Whole"]
 scale = Vector2(0.15, 0.15)
