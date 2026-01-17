@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c32i1lx1fsd8i"
-path="res://.godot/imported/baby.png-c55154c9b7bb1ae88c41ad080baa2483.ctex"
+uid="uid://bm72teo0hnmqr"
+path="res://.godot/imported/jail.png-b19f59f95d1c632a710bf8e80c170700.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/art/baby.png"
-dest_files=["res://.godot/imported/baby.png-c55154c9b7bb1ae88c41ad080baa2483.ctex"]
+source_file="res://resources/art/jail.png"
+dest_files=["res://.godot/imported/jail.png-b19f59f95d1c632a710bf8e80c170700.ctex"]
 
 [params]
 

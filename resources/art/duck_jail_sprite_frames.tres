@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://dkety0murngui"]
+
+[ext_resource type="Texture2D" uid="uid://bm72teo0hnmqr" path="res://resources/art/jail.png" id="1_ijrwq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yb62u"]
+atlas = ExtResource("1_ijrwq")
+region = Rect2(0, 0, 159, 132)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yb62u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

@@ -19,6 +19,7 @@
 [ext_resource type="Material" uid="uid://6mp4j8vmnlpm" path="res://resources/shaders/preset_colors/color_4.tres" id="11_pm3ni"]
 [ext_resource type="PackedScene" uid="uid://ds4gsxac0h7lp" path="res://scenes/main_menu.tscn" id="13_ballz"]
 [ext_resource type="Material" uid="uid://dhgi6bsrrsrcp" path="res://resources/shaders/preset_colors/color_5.tres" id="13_y6deb"]
+[ext_resource type="PackedScene" uid="uid://bsb30s2kof4nu" path="res://scenes/ingame_overlay.tscn" id="14_ingame"]
 [ext_resource type="Material" uid="uid://bg4oeqhe3t6o8" path="res://resources/shaders/preset_colors/color_6.tres" id="15_og1vs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
@@ -133,6 +134,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("PlaceholderTexture2D_tbgi4")
+
+[node name="IngameOverlayCanvas" type="CanvasLayer" parent="."]
+
+[node name="IngameOverlay" parent="IngameOverlayCanvas" instance=ExtResource("14_ingame")]
 
 [node name="MainMenuOverlayCanvas" type="CanvasLayer" parent="."]
 

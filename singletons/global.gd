@@ -47,10 +47,6 @@ func _ready() -> void:
 	_load_high_score()
 	bind_callbacks()
 
-func _process(delta: float) -> void:
-	if is_playing() and reputation <= 0:
-		end_game(score)
-
 func bind_callbacks() -> void:
 	game_started.connect(_on_game_started)
 	game_ended.connect(_on_game_ended)
@@ -149,8 +145,12 @@ func _on_baby_caught() -> void:
 
 
 func _on_baby_lost() -> void:
+	if not is_playing():
+		return
 	reputation -= 1
 	reputation_changed.emit(reputation)
+	if reputation <= 0:
+		end_game(score)
 
 
 func is_playing() -> bool:

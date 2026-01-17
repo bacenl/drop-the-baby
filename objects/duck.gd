@@ -16,21 +16,26 @@ var y_offset = -20
 var local_y_offset_array = [y_offset, y_offset * 2, y_offset * 3, y_offset * 4, y_offset * 5]
 var baby_array: Array[Baby]= []
 
-# Called when the node enters the scene tree for the first time.
+@onready var jail: Node2D = $Jail
+@onready var jail_animation: AnimationPlayer = $Jail/AnimationPlayer
+
 func _ready() -> void:
 	position = Vector2(0, -MIN_RADIUS)
 	curr_radius = MIN_RADIUS
 	curr_speed = BASE_SPEED
 
+	Global.game_ended.connect(_on_game_ended)
+	Global.game_started.connect(_on_game_started)
+	Global.return_to_main_menu.connect(_on_return_to_main_menu)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if not Global.is_playing():
 		return
 	_handle_input(delta)
 	print("Score: ", Global.score)
 	print("Rep: ", Global.reputation)
-
 
 	rotation = theta_rad
 	theta_rad += curr_speed / curr_radius # omega = v/r, theta = theta_0 + d_omega * t
@@ -86,3 +91,32 @@ func _handle_input(delta: float) -> void:
 
 	if Input.is_action_just_pressed("drop"):
 		_drop_baby()
+
+
+func _on_game_ended(_score: int) -> void:
+	_drop_all_babies.call_deferred()
+	jail.show()
+	jail_animation.play("jail_duck")
+
+
+func _drop_all_babies() -> void:
+	while not baby_array.is_empty():
+		var baby = baby_array.pop_front()
+		var global_pos = baby.global_position
+		self.remove_child(baby)
+		self.get_parent().add_child(baby)
+		baby.remove_from_group("duck")
+		baby.position = global_pos
+		baby.is_falling = true
+		baby.fall_direction = Global.CENTER - global_pos
+		baby.fall_speed = 2
+
+
+func _on_game_started() -> void:
+	jail.hide()
+	jail_animation.stop()
+
+
+func _on_return_to_main_menu() -> void:
+	jail.hide()
+	jail_animation.stop()

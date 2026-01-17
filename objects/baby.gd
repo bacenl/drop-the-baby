@@ -81,7 +81,7 @@ func _on_area_entered(area: Area2D):
 	if not is_collected:
 		if area.is_in_group("duck"):
 			line.hide()
-			duck.add_baby(self)
+			duck.add_baby.call_deferred(self)
 			return
 		if area.is_in_group("earth"):
 			_lost()
