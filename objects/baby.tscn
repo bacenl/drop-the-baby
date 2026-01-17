@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3l02eu3lcwe6"]
+[gd_scene load_steps=6 format=3 uid="uid://d3l02eu3lcwe6"]
 
-[ext_resource type="Texture2D" uid="uid://b6u8udbji3s4" path="res://resources/art/circle.png" id="1_dnf4d"]
 [ext_resource type="Script" uid="uid://dwi62t7j85aiq" path="res://objects/baby.gd" id="1_nuvtx"]
+[ext_resource type="Material" uid="uid://dhgi6bsrrsrcp" path="res://resources/shaders/preset_colors/color_5.tres" id="2_atoqb"]
+[ext_resource type="Texture2D" uid="uid://dnv6tmda4xwkh" path="res://resources/art/duck_baby.png" id="2_nuvtx"]
+[ext_resource type="Material" uid="uid://cb1g6eudnmxra" path="res://resources/shaders/baby_trail_galactic_material.tres" id="4_uxe4x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nuvtx"]
 radius = 20.0
@@ -11,10 +13,20 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("1_nuvtx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.04, 0.04)
-texture = ExtResource("1_dnf4d")
+material = ExtResource("2_atoqb")
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("2_nuvtx")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_nuvtx")
+
+[node name="Line2D" type="Line2D" parent="."]
+z_index = -10
+material = ExtResource("4_uxe4x")
+position = Vector2(1, 0)
+width = 30.0
+texture_mode = 2
+joint_mode = 2
+begin_cap_mode = 2
