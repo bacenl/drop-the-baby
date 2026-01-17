@@ -47,6 +47,7 @@ func _on_area_entered(area: Area2D):
 			return
 	
 	if area.is_in_group("zones"):
+		print(area.get_groups())
 		# in case collides with multiple areas
 		print(area, area.has_method("check_zone"))
 		in_correct_zone = in_correct_zone or area.check_zone() == correct_zone

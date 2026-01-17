@@ -36,44 +36,32 @@ var high_score: int = 0
 
 func _ready() -> void:
 	_load_high_score()
+	bind_callbacks()
+
+func bind_callbacks() -> void:
+	game_started.connect(_on_game_started)
+	game_ended.connect(_on_game_ended)
+	game_paused.connect(_on_game_paused)
+	game_resumed.connect(_on_game_resumed)
+	return_to_main_menu.connect(_on_return_to_main_menu)
+	baby_caught.connect(on_baby_caught)
 
 
 func start_game() -> void:
-	score = 0
-	current_state = GameState.PLAYING
-	_update_control_vars()
 	game_started.emit()
-	score_changed.emit(score)
 
 
 func end_game(final_score: int = -1) -> void:
-	if final_score >= 0:
-		score = final_score
-
-	current_state = GameState.GAME_OVER
-	_update_control_vars()
-
-	if score > high_score:
-		high_score = score
-		high_score_changed.emit(high_score)
-		_save_high_score()
-
-	game_ended.emit(score)
+	game_ended.emit(final_score)
 
 
 func pause_game() -> void:
 	if current_state == GameState.PLAYING:
-		current_state = GameState.PAUSED
-		_update_control_vars()
-		get_tree().paused = true
 		game_paused.emit()
 
 
 func resume_game() -> void:
 	if current_state == GameState.PAUSED:
-		current_state = GameState.PLAYING
-		_update_control_vars()
-		get_tree().paused = false
 		game_resumed.emit()
 
 
@@ -85,11 +73,47 @@ func toggle_pause() -> void:
 
 
 func go_to_main_menu() -> void:
+	return_to_main_menu.emit()
+
+
+# Signal callbacks
+func _on_game_started() -> void:
+	score = 0
+	current_state = GameState.PLAYING
+	_update_control_vars()
+	score_changed.emit(score)
+
+
+func _on_game_ended(final_score: int) -> void:
+	if final_score >= 0:
+		score = final_score
+
+	current_state = GameState.GAME_OVER
+	_update_control_vars()
+
+	if score > high_score:
+		high_score = score
+		high_score_changed.emit(high_score)
+		_save_high_score()
+
+
+func _on_game_paused() -> void:
+	current_state = GameState.PAUSED
+	_update_control_vars()
+	get_tree().paused = true
+
+
+func _on_game_resumed() -> void:
+	current_state = GameState.PLAYING
+	_update_control_vars()
+	get_tree().paused = false
+
+
+func _on_return_to_main_menu() -> void:
 	get_tree().paused = false
 	current_state = GameState.MAIN_MENU
 	_update_control_vars()
 	score = 0
-	return_to_main_menu.emit()
 
 
 func _update_control_vars() -> void:
@@ -99,27 +123,14 @@ func _update_control_vars() -> void:
 	in_main_menu = current_state == GameState.MAIN_MENU
 
 
-func add_score(points: int) -> void:
-	score += points
-	score_changed.emit(score)
-
-
 func set_score(new_score: int) -> void:
 	score = new_score
 	score_changed.emit(score)
 
 
-func on_baby_dropped() -> void:
-	baby_dropped.emit()
-
-
 func on_baby_caught() -> void:
-	baby_caught.emit()
-	add_score(1)
-
-
-func on_baby_lost() -> void:
-	baby_lost.emit()
+	score += 1
+	score_changed.emit(score)
 
 
 func is_playing() -> bool:
