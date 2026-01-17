@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://6mp4j8vmnlpm"]
 
-[ext_resource type="Shader" path="res://resources/shaders/baby_tint_shader.gdshader" id="1_byyee"]
+[ext_resource type="Shader" uid="uid://b3ew5mp534mop" path="res://resources/shaders/baby_tint_shader.gdshader" id="1_byyee"]
 
 [resource]
 resource_local_to_scene = true
