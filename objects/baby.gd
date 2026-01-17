@@ -1,3 +1,4 @@
+class_name Baby
 extends Node2D
 
 var DEFAULT_FALL_SPEED: float = 0.5
@@ -25,11 +26,19 @@ func _process(delta: float) -> void:
 	position += delta * fall_direction * fall_speed
 	pass
 
+func _get_collected() -> void:
+	print("collected")
+	queue_free()
+
 func _kill_self() -> void:
 	print("deadge")
 	queue_free()
 
 func _on_area_entered(area: Area2D):
+	if area.is_in_group("duck"):
+		_get_collected()
+		return
+
 	if not is_collected:
 		if area.is_in_group("earth"):
 			_kill_self()

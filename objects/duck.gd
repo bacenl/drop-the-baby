@@ -1,3 +1,4 @@
+class_name Duck
 extends Node2D
 
 var FLYING_RADIUS: float = 150
@@ -21,22 +22,29 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_handle_input()
 
-	rotation = theta_rad
+	rotation = theta_rad + PI/2 
 	theta_rad += curr_speed * delta
 	position.x = curr_radius * cos(theta_rad)
 	position.y = curr_radius * sin(theta_rad)
 	pass
 
 
-func set_speed(new_speed: float) -> void:
+func _set_speed(new_speed: float) -> void:
 	curr_speed = new_speed
 
 
+func _add_baby(baby: Baby) -> void:
+	pass
+
+
+func _drop_baby(baby: Baby) -> void:
+	pass
+
 func _handle_input() -> void:
 	if Input.is_action_pressed("accelerate"):
-		set_speed(FAST_SPEED)
+		_set_speed(FAST_SPEED)
 	else:
-		set_speed(BASE_SPEED)
+		_set_speed(BASE_SPEED)
 
 	if Input.is_action_pressed("drop"):
 		print("drop")
