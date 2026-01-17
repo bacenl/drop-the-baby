@@ -1,12 +1,14 @@
 extends Node2D
 
-var FLYING_RADIUS = 450
-var BASE_SPEED = 1
-var FAST_SPEED = 1.5
+var FLYING_RADIUS: float = 150
+var BASE_SPEED: float = 1
+var FAST_SPEED: float = 1.5
+var BABY_CAPACITY: float = 5
 
-var curr_radius
-var curr_speed
-var theta_deg = 0
+var curr_radius: float
+var curr_speed: float
+var theta_rad: float = 0
+var baby_queue: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,24 +19,24 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_pressed("accelerate"):
-		set_speed(FAST_SPEED)
-		print("fast")
-	else:
-		set_speed(BASE_SPEED)
-	if Input.is_action_pressed("drop"):
-		print("drop")
+	_handle_input()
 
-	theta_deg += curr_speed * delta
-	position.x = curr_radius * cos(theta_deg)
-	position.y = curr_radius * sin(theta_deg)
+	rotation = theta_rad
+	theta_rad += curr_speed * delta
+	position.x = curr_radius * cos(theta_rad)
+	position.y = curr_radius * sin(theta_rad)
 	pass
+
 
 func set_speed(new_speed: float) -> void:
 	curr_speed = new_speed
 
 
-func _input(event):
-	if event.is_action_pressed("accelerate"):
+func _handle_input() -> void:
+	if Input.is_action_pressed("accelerate"):
 		set_speed(FAST_SPEED)
-		print("input way")
+	else:
+		set_speed(BASE_SPEED)
+
+	if Input.is_action_pressed("drop"):
+		print("drop")
