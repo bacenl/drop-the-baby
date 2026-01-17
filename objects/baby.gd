@@ -17,18 +17,16 @@ enum Zone {ZONE_1, ZONE_2}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	area2d.connect("area_entered", _on_area_entered)
+
 	fall_direction = CENTER - position
 	fall_speed = DEFAULT_FALL_SPEED
-
-	area2d.connect("area_entered", _on_area_entered)
-	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if is_falling:
 		position += delta * fall_direction * fall_speed
-	pass
 
 
 func _kill_self() -> void:
@@ -39,7 +37,7 @@ func _kill_self() -> void:
 func _on_area_entered(area: Area2D):
 	if not is_collected:
 		if area.is_in_group("duck"):
-			duck.add_baby(self)
+			duck._add_baby(self)
 			return
 		if area.is_in_group("earth"):
 			_kill_self()
@@ -48,7 +46,3 @@ func _on_area_entered(area: Area2D):
 	if area.is_in_group("zones"):
 		# check zone correctness
 		return
-# Handle collisions here
-# If not collected, check against the whole earth
-# If collected, and if correct zone, score
-# else, die
