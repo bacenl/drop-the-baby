@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://diwx1byqr24ni"]
-
-[ext_resource type="Script" uid="uid://sj875uyeejeo" path="res://singletons/baby_factory.gd" id="1_37huo"]
-
-[node name="BabyFactory" type="Node2D"]
-script = ExtResource("1_37huo")

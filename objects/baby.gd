@@ -27,15 +27,15 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if is_falling:
 		position += delta * fall_direction * fall_speed
-	if is_falling and is_collected:
-		print(fall_speed)
-		print(fall_direction)
 
 
 func _kill_self() -> void:
 	print("deadge")
 	queue_free()
 
+func _success() -> void:
+	print("success")
+	queue_free()
 
 func _on_area_entered(area: Area2D):
 	if not is_collected:
@@ -51,12 +51,9 @@ func _on_area_entered(area: Area2D):
 		# in case collides with multiple areas
 		print(area, area.has_method("check_zone"))
 		in_correct_zone = in_correct_zone or area.check_zone() == correct_zone
-		
-	# Handle collisions here
-	# If not collected, check against the whole earth
-	# If collected, and if correct zone, score
-	# else, die
-	if area.is_in_group("earth") and in_correct_zone:
-		area.score_baby(self)
-		_kill_self()
+		_success()
 		return
+		
+	area.score_baby(self)
+	_kill_self()
+	return
