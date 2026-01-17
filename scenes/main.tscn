@@ -1,17 +1,18 @@
-[gd_scene load_steps=15 format=3 uid="uid://b3g0qyike107j"]
+[gd_scene load_steps=16 format=3 uid="uid://b3g0qyike107j"]
 
 [ext_resource type="PackedScene" uid="uid://bn1etx4bqluq7" path="res://objects/duck.tscn" id="2_0wfyh"]
 [ext_resource type="Script" uid="uid://sj875uyeejeo" path="res://singletons/baby_factory.gd" id="3_sugp2"]
-[ext_resource type="Script" uid="uid://txc6ek7esvla" path="res://scenes/earth.gd" id="3_tbgi4"]
+[ext_resource type="Script" path="res://scenes/earth.gd" id="3_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://dky430t3e3gn" path="res://resources/art/earth/sea.PNG" id="3_tefeu"]
 [ext_resource type="Texture2D" uid="uid://bni8yfqgipqhh" path="res://resources/art/earth/IMG_3849.PNG" id="4_eb6dy"]
-[ext_resource type="Script" uid="uid://csjnomeqv1vqw" path="res://scenes/zone.gd" id="4_jyhfs"]
+[ext_resource type="Script" path="res://scenes/zone.gd" id="4_jyhfs"]
 [ext_resource type="Material" uid="uid://bepuqreckh1uv" path="res://resources/shaders/background_material.tres" id="5_ballz"]
 [ext_resource type="Texture2D" uid="uid://d4fnux5x0n0j2" path="res://resources/art/earth/IMG_3850.PNG" id="5_trceg"]
 [ext_resource type="Texture2D" uid="uid://bpgx0dpqyique" path="res://resources/art/earth/IMG_3851.PNG" id="6_a8y0u"]
 [ext_resource type="Texture2D" uid="uid://bniitpi68bgus" path="res://resources/art/earth/IMG_3852.PNG" id="7_jkv2x"]
 [ext_resource type="Texture2D" uid="uid://xgjtpk8u1yho" path="res://resources/art/earth/IMG_3853.PNG" id="8_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://c5wgeypditj3d" path="res://resources/art/earth/IMG_3854.PNG" id="9_muem4"]
+[ext_resource type="PackedScene" uid="uid://ds4gsxac0h7lp" path="res://scenes/main_menu.tscn" id="13_trceg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
 radius = 515.0
@@ -118,3 +119,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("PlaceholderTexture2D_tbgi4")
+
+[node name="MainMenuOverlayCanvas" type="CanvasLayer" parent="."]
+
+[node name="MainMenuOverlay" parent="MainMenuOverlayCanvas" instance=ExtResource("13_trceg")]
