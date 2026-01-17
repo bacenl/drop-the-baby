@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cb1g6eudnmxra"]
+
+[ext_resource type="Shader" uid="uid://d1x534h2tpxh2" path="res://resources/shaders/baby_trail_galactic_shader.gdshader" id="1_galactic"]
+
+[resource]
+shader = ExtResource("1_galactic")
+shader_parameter/edge_color = Color(1, 1, 1, 0.59607846)
+shader_parameter/center_color = Color(0.46507323, 0.30267024, 0.2907267, 0.3019608)
+shader_parameter/edge_width = 0.15
+shader_parameter/spark_density = 20.0
+shader_parameter/spark_brightness = 1.0
+shader_parameter/spark_size = 0.5
+shader_parameter/time_scale = 1.0
+shader_parameter/tail_fade_power = 1.0
+shader_parameter/line_length = 100.0
+shader_parameter/line_width = 20.0
+shader_parameter/wiggle_amount = 0.05
+shader_parameter/wiggle_speed = 2.0
+shader_parameter/wiggle_frequency = 5.0
+shader_parameter/edge_wiggle_amount = 0.1
+shader_parameter/edge_wiggle_speed = 4.0
+shader_parameter/edge_wiggle_frequency = 15.0

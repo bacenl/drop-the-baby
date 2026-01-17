@@ -1,0 +1,55 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://bxgcm4n4mlkqw"]
+
+[ext_resource type="Texture2D" uid="uid://c50kwte3m8606" path="res://resources/art/duck_wings_frames.png" id="1_llq0d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8r0hp"]
+atlas = ExtResource("1_llq0d")
+region = Rect2(0, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whpdt"]
+atlas = ExtResource("1_llq0d")
+region = Rect2(2048, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuejt"]
+atlas = ExtResource("1_llq0d")
+region = Rect2(4096, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75cim"]
+atlas = ExtResource("1_llq0d")
+region = Rect2(6144, 0, 2048, 2048)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7pvg"]
+atlas = ExtResource("1_llq0d")
+region = Rect2(8192, 0, 2048, 2048)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8r0hp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whpdt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuejt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75cim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7pvg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75cim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuejt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whpdt")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 12.0
+}]

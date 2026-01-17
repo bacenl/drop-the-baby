@@ -1,0 +1,118 @@
+[gd_scene load_steps=9 format=3 uid="uid://cvfq3rbvtqy45"]
+
+[ext_resource type="Material" uid="uid://jilpmnl5mf46" path="res://resources/shaders/fire_material.tres" id="1_y77g5"]
+[ext_resource type="Texture2D" uid="uid://c32i1lx1fsd8i" path="res://resources/art/baby.png" id="2_7yi8r"]
+[ext_resource type="Material" uid="uid://cb1g6eudnmxra" path="res://resources/shaders/baby_trail_galactic_material.tres" id="3_q51vy"]
+[ext_resource type="Material" uid="uid://bepuqreckh1uv" path="res://resources/shaders/background_material.tres" id="4_pqobh"]
+
+[sub_resource type="Animation" id="Animation_bi4e3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/y_position_2")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/transparency")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_qk5rn"]
+resource_name = "burn_animation"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/y_position_2")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 0.07966028),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/transparency")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 1.3),
+"transitions": PackedFloat32Array(1, 7.4642496),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vpnk5"]
+_data = {
+&"RESET": SubResource("Animation_bi4e3"),
+&"burn_animation": SubResource("Animation_qk5rn")
+}
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_y77g5"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Burn" type="Node2D" parent="."]
+position = Vector2(-801, 13)
+
+[node name="Sprite2D" type="Sprite2D" parent="Burn"]
+material = ExtResource("1_y77g5")
+texture = ExtResource("2_7yi8r")
+
+[node name="BurnAnimation" type="Node2D" parent="."]
+position = Vector2(-331, 37)
+
+[node name="Sprite2D" type="Sprite2D" parent="BurnAnimation"]
+material = ExtResource("1_y77g5")
+texture = ExtResource("2_7yi8r")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BurnAnimation"]
+libraries = {
+&"": SubResource("AnimationLibrary_vpnk5")
+}
+
+[node name="BabyTrail" type="Node2D" parent="."]
+position = Vector2(177, 14)
+
+[node name="Line2D" type="Line2D" parent="BabyTrail"]
+material = ExtResource("3_q51vy")
+position = Vector2(1, 0)
+points = PackedVector2Array(0, 0, 451, 372)
+width = 100.0
+texture_mode = 2
+joint_mode = 2
+begin_cap_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="BabyTrail"]
+material = ExtResource("1_y77g5")
+texture = ExtResource("2_7yi8r")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+material = ExtResource("4_pqobh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_y77g5")

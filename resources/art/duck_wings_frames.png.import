@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6u8udbji3s4"
-path="res://.godot/imported/circle.png-c566baf157a4b2b4417c4db3e2704fb1.ctex"
+uid="uid://c50kwte3m8606"
+path="res://.godot/imported/duck_wings_frames.png-277107f6dc43ad8f89cd5c89b0ea6cc6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/circle.png"
-dest_files=["res://.godot/imported/circle.png-c566baf157a4b2b4417c4db3e2704fb1.ctex"]
+source_file="res://resources/art/duck_wings_frames.png"
+dest_files=["res://.godot/imported/duck_wings_frames.png-277107f6dc43ad8f89cd5c89b0ea6cc6.ctex"]
 
 [params]
 
