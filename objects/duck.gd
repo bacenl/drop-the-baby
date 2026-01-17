@@ -1,7 +1,7 @@
 class_name Duck
 extends Node2D
 
-var BASE_SPEED: float = 8
+var BASE_SPEED: float = 6
 var BABY_CAPACITY: float = 5
 var VERTICAL_ACCELERATION: float = 200
 var MIN_RADIUS: float = 120
@@ -35,7 +35,7 @@ func _process(delta: float) -> void:
 	rotation = theta_rad
 	
 	# experimental multiplier
-	var mult =  (1.5 - pow(1.5 * (curr_radius - MIN_RADIUS) / (MAX_RADIUS - MIN_RADIUS) - 0.5, 2))
+	var mult =  (1.5 - pow(1.3 * (curr_radius - MIN_RADIUS) / (MAX_RADIUS - MIN_RADIUS) - 0.5, 2))
 	theta_rad += curr_speed / curr_radius * mult # omega = v/r, theta = theta_0 + d_omega * t
 	position.x = curr_radius * sin(theta_rad)
 	position.y = -curr_radius * cos(theta_rad)

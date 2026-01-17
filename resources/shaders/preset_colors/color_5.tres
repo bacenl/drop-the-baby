@@ -1,11 +1,11 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://d3wtw4mp0hq3p"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dhgi6bsrrsrcp"]
 
-[ext_resource type="Shader" path="res://resources/shaders/baby_tint_shader.gdshader" id="1_8cobp"]
+[ext_resource type="Shader" path="res://resources/shaders/baby_tint_shader.gdshader" id="1_6hxh8"]
 
 [resource]
 resource_local_to_scene = true
-shader = ExtResource("1_8cobp")
-shader_parameter/original_color_weight = 0.5
+shader = ExtResource("1_6hxh8")
+shader_parameter/original_color_weight = 0.0810000038475
 shader_parameter/tint_color = Color(1, 1, 1, 1)
 shader_parameter/tolerance = 0.1
 shader_parameter/blacklist_color_1 = Color(0, 0, 0, 1)
