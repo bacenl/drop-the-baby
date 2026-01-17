@@ -25,6 +25,7 @@ signal baby_lost
 
 # Baby queue
 signal update_next_duck(int)
+signal capacity_changed(count: int)
 
 # Game state
 enum GameState { MAIN_MENU, PLAYING, PAUSED, GAME_OVER }

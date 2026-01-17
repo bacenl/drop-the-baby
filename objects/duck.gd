@@ -62,6 +62,7 @@ func add_baby(baby: Baby) -> void:
 
 	_update_baby_positions()
 	Global.update_next_duck.emit(get_next_baby_target())
+	Global.capacity_changed.emit(baby_array.size())
 
 
 func _drop_baby() -> void:
@@ -80,6 +81,7 @@ func _drop_baby() -> void:
 	baby.position = global_pos
 
 	Global.update_next_duck.emit(get_next_baby_target())
+	Global.capacity_changed.emit(baby_array.size())
 	_update_baby_positions()
 
 

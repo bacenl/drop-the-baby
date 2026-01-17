@@ -47,7 +47,7 @@ expand_mode = 4
 layout_mode = 2
 alignment = 2
 
-[node name="Placeholder" type="TextureRect" parent="TopRight/CurrentScoreWrapper"]
+[node name="ScoreThumb" type="TextureRect" parent="TopRight/CurrentScoreWrapper"]
 material = ExtResource("2_6uvmq")
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
@@ -67,7 +67,9 @@ text = "60"
 [node name="Instructions" type="Label" parent="TopRight"]
 layout_mode = 2
 text = "Hold <Space> to dip down
-Press <D> to drop baby"
+Press <D> to drop baby
+Catch babies before they burn
+Then deliver them!"
 horizontal_alignment = 2
 
 [node name="Middle" type="Control" parent="."]
@@ -128,17 +130,20 @@ horizontal_alignment = 1
 [node name="TopLeft" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Instructions" type="Label" parent="TopLeft"]
+[node name="FirstInLineDummyText" type="Label" parent="TopLeft"]
 layout_mode = 2
-text = "Dropping:"
+text = "First in line:"
 
 [node name="CurrentScoreWrapper" type="HBoxContainer" parent="TopLeft"]
 layout_mode = 2
 
 [node name="NextColor" type="TextureRect" parent="TopLeft/CurrentScoreWrapper"]
-visible = false
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 texture = ExtResource("4_fce62")
 expand_mode = 3
 flip_h = true
+
+[node name="Capacity" type="Label" parent="TopLeft"]
+layout_mode = 2
+text = "Capacity: 0 / 5"
