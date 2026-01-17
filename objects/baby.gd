@@ -56,7 +56,7 @@ func _sample_line_texture() -> void:
 
 
 func _success() -> void:
-	Global.baby_caught.emit()
+	Global.baby_success.emit()
 	queue_free() # to replace with animations
 
 
@@ -80,6 +80,7 @@ func _on_area_entered(area: Area2D):
 	
 	if not is_collected:
 		if area.is_in_group("duck"):
+			Global.baby_collected.emit(self)
 			line.hide()
 			duck.add_baby.call_deferred(self)
 			return

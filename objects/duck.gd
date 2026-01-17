@@ -43,6 +43,12 @@ func _physics_process(delta: float) -> void:
 	position.y = -curr_radius * cos(theta_rad)
 
 
+func get_next_baby_target() -> int:
+	if baby_array.is_empty():
+		return -1
+	return baby_array[0].target_zone
+
+
 func add_baby(baby: Baby) -> void:
 	if baby_array.size() >= BABY_CAPACITY:
 		return
@@ -55,8 +61,8 @@ func add_baby(baby: Baby) -> void:
 	baby.is_falling = false
 	baby.is_collected = true
 
-	print(baby_array)
 	_update_baby_positions()
+	Global.update_next_duck.emit(get_next_baby_target())
 
 
 func _drop_baby() -> void:
@@ -72,10 +78,10 @@ func _drop_baby() -> void:
 	baby.is_falling = true
 	baby.fall_direction = Global.CENTER - global_pos
 	baby.fall_speed = 2
-
-	_update_baby_positions()
-	print(baby_array)
 	baby.position = global_pos
+
+	Global.update_next_duck.emit(get_next_baby_target())
+	_update_baby_positions()
 
 
 func _update_baby_positions() -> void:

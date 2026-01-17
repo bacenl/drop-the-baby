@@ -18,9 +18,13 @@ signal high_score_changed(new_high_score: int)
 signal reputation_changed(new_reputation: int)
 
 # Baby signals
-signal baby_dropped
-signal baby_caught
+signal baby_collected(baby: Baby)
+signal baby_dropped(baby: Baby)
+signal baby_success
 signal baby_lost
+
+# Baby queue
+signal update_next_duck(int)
 
 # Game state
 enum GameState { MAIN_MENU, PLAYING, PAUSED, GAME_OVER }
@@ -53,7 +57,7 @@ func bind_callbacks() -> void:
 	game_paused.connect(_on_game_paused)
 	game_resumed.connect(_on_game_resumed)
 	return_to_main_menu.connect(_on_return_to_main_menu)
-	baby_caught.connect(_on_baby_caught)
+	baby_success.connect(_on_baby_success)
 	baby_lost.connect(_on_baby_lost)
 
 
@@ -139,7 +143,7 @@ func set_score(new_score: int) -> void:
 	score_changed.emit(score)
 
 
-func _on_baby_caught() -> void:
+func _on_baby_success() -> void:
 	score += 1
 	score_changed.emit(score)
 
