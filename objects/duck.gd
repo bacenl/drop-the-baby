@@ -1,9 +1,9 @@
 class_name Duck
 extends Node2D
 
-var BASE_SPEED: float = 6
+var BASE_SPEED: float = 10
 var BABY_CAPACITY: float = 5
-var VERTICAL_ACCELERATION: float = 200
+var VERTICAL_ACCELERATION: float = 500
 var MIN_RADIUS: float = 150
 var MAX_RADIUS: float = 250
 
@@ -18,18 +18,24 @@ var baby_array: Array[Baby]= []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	curr_radius = MAX_RADIUS
+	position = Vector2(0, -MIN_RADIUS)
+	curr_radius = MIN_RADIUS
 	curr_speed = BASE_SPEED
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if not Global.is_playing():
+		return
 	_handle_input(delta)
+	print("Score: ", Global.score)
+	print("Rep: ", Global.reputation)
 
-	rotation = theta_rad + PI/2 
+
+	rotation = theta_rad
 	theta_rad += curr_speed / curr_radius # omega = v/r, theta = theta_0 + d_omega * t
-	position.x = curr_radius * cos(theta_rad)
-	position.y = curr_radius * sin(theta_rad)
+	position.x = curr_radius * sin(theta_rad)
+	position.y = -curr_radius * cos(theta_rad)
 
 
 func add_baby(baby: Baby) -> void:
@@ -44,6 +50,7 @@ func add_baby(baby: Baby) -> void:
 	baby.is_falling = false
 	baby.is_collected = true
 
+	print(baby_array)
 	_update_baby_positions()
 
 
@@ -58,9 +65,11 @@ func _drop_baby() -> void:
 	baby.remove_from_group("duck")
 
 	baby.is_falling = true
-	baby.fall_direction = Earth.CENTER - global_pos
+	baby.fall_direction = Global.CENTER - global_pos
+	baby.fall_speed = 2
 
 	_update_baby_positions()
+	print(baby_array)
 	baby.position = global_pos
 
 

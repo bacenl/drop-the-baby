@@ -8,18 +8,17 @@ var timer = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_spawn_baby()
-
-	pass # Replace with function body.
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if not Global.is_playing():
+		return
 	timer += delta
 	if (timer >= DEFAULT_SPAWN_INTERVAL):
 		timer = 0
 		_spawn_baby()
-	pass
 
 
 func _spawn_baby() -> void:

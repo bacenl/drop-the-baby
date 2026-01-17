@@ -10,7 +10,7 @@
 viewport_path = NodePath("DuckTexture/SubViewport")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l0iv7"]
-radius = 34.38
+radius = 50.0
 
 [node name="Duck" type="Node2D"]
 script = ExtResource("1_flsqi")
@@ -45,5 +45,3 @@ frame_progress = 0.47471663
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_l0iv7")
-
-[node name="BabyCarrier" type="Node2D" parent="."]

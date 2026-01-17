@@ -7,6 +7,7 @@
 radius = 20.0
 
 [node name="Baby" type="Node2D"]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_nuvtx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

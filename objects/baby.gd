@@ -1,7 +1,7 @@
 class_name Baby
 extends Node2D
 
-var DEFAULT_FALL_SPEED: float = 0.5
+var DEFAULT_FALL_SPEED: float = 0.3
 
 @onready
 var area2d: Area2D = $'Area2D'
@@ -19,7 +19,7 @@ var correct_zone: int = 1
 func _ready() -> void:
 	area2d.connect("area_entered", _on_area_entered)
 
-	fall_direction = Earth.CENTER - position
+	fall_direction = Global.CENTER - position
 	fall_speed = DEFAULT_FALL_SPEED
 
 
@@ -29,13 +29,14 @@ func _process(delta: float) -> void:
 		position += delta * fall_direction * fall_speed
 
 
-func _kill_self() -> void:
-	print("deadge")
-	queue_free()
-
 func _success() -> void:
-	print("success")
-	queue_free()
+	Global.baby_caught.emit()
+	queue_free() # to replace with animations
+
+
+func _lost() -> void:
+	Global.baby_lost.emit()
+	queue_free() # to replace with animations
 
 func _on_area_entered(area: Area2D):
 	if not is_collected:
@@ -43,7 +44,7 @@ func _on_area_entered(area: Area2D):
 			duck.add_baby(self)
 			return
 		if area.is_in_group("earth"):
-			_kill_self()
+			_lost()
 			return
 	
 	if area.is_in_group("zones"):
@@ -51,9 +52,10 @@ func _on_area_entered(area: Area2D):
 		# in case collides with multiple areas
 		print(area, area.has_method("check_zone"))
 		in_correct_zone = in_correct_zone or area.check_zone() == correct_zone
-		_success()
-		return
+		if in_correct_zone:
+			_success()
+			return
 		
-	area.score_baby(self)
-	_kill_self()
-	return
+	if area.is_in_group("earth"):
+		_lost()
+		return

@@ -14,6 +14,9 @@ signal return_to_main_menu
 signal score_changed(new_score: int)
 signal high_score_changed(new_high_score: int)
 
+# Reputation signals
+signal reputation_changed(new_reputation: int)
+
 # Baby signals
 signal baby_dropped
 signal baby_caught
@@ -29,9 +32,15 @@ var game_is_paused: bool = false
 var game_is_over: bool = false
 var in_main_menu: bool = true
 
+# Game globals
+var CENTER: Vector2 = Vector2(0, 0)
+
 # Score tracking
 var score: int = 0
 var high_score: int = 0
+
+var MAX_REPUTATION: int = 3
+var reputation: int
 
 
 func _ready() -> void:
@@ -44,7 +53,8 @@ func bind_callbacks() -> void:
 	game_paused.connect(_on_game_paused)
 	game_resumed.connect(_on_game_resumed)
 	return_to_main_menu.connect(_on_return_to_main_menu)
-	baby_caught.connect(on_baby_caught)
+	baby_caught.connect(_on_baby_caught)
+	baby_lost.connect(_on_baby_lost)
 
 
 func start_game() -> void:
@@ -79,6 +89,7 @@ func go_to_main_menu() -> void:
 # Signal callbacks
 func _on_game_started() -> void:
 	score = 0
+	reputation = MAX_REPUTATION
 	current_state = GameState.PLAYING
 	_update_control_vars()
 	score_changed.emit(score)
@@ -128,9 +139,14 @@ func set_score(new_score: int) -> void:
 	score_changed.emit(score)
 
 
-func on_baby_caught() -> void:
+func _on_baby_caught() -> void:
 	score += 1
 	score_changed.emit(score)
+
+
+func _on_baby_lost() -> void:
+	reputation -= 1
+	reputation_changed.emit(reputation)
 
 
 func is_playing() -> bool:
