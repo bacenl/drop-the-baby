@@ -13,8 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://xgjtpk8u1yho" path="res://resources/art/earth/IMG_3853.PNG" id="8_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://c5wgeypditj3d" path="res://resources/art/earth/IMG_3854.PNG" id="9_muem4"]
 [ext_resource type="Script" uid="uid://seuxatge0p10" path="res://objects/earth.gd" id="10_trceg"]
-[ext_resource type="PackedScene" path="res://scenes/main_menu.tscn" id="13_trceg"]
-[ext_resource type="PackedScene" uid="uid://ds4gsxac0h7lp" path="res://scenes/main_menu.tscn" id="13_ballz"]
+[ext_resource type="PackedScene" path="res://scenes/main_menu.tscn" id="13_ballz"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
 radius = 515.0

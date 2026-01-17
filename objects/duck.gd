@@ -1,11 +1,11 @@
 class_name Duck
 extends Node2D
 
-var BASE_SPEED: float = 10
+var BASE_SPEED: float = 8
 var BABY_CAPACITY: float = 5
-var VERTICAL_ACCELERATION: float = 500
-var MIN_RADIUS: float = 150
-var MAX_RADIUS: float = 250
+var VERTICAL_ACCELERATION: float = 200
+var MIN_RADIUS: float = 120
+var MAX_RADIUS: float = 300
 
 var curr_radius: float
 var curr_speed: float
@@ -33,7 +33,10 @@ func _process(delta: float) -> void:
 
 
 	rotation = theta_rad
-	theta_rad += curr_speed / curr_radius # omega = v/r, theta = theta_0 + d_omega * t
+	
+	# experimental multiplier
+	var mult =  (1.5 - pow(1.5 * (curr_radius - MIN_RADIUS) / (MAX_RADIUS - MIN_RADIUS) - 0.5, 2))
+	theta_rad += curr_speed / curr_radius * mult # omega = v/r, theta = theta_0 + d_omega * t
 	position.x = curr_radius * sin(theta_rad)
 	position.y = -curr_radius * cos(theta_rad)
 
@@ -82,7 +85,7 @@ func _handle_input(delta: float) -> void:
 	if Input.is_action_pressed("accelerate"):
 		curr_radius = clamp(curr_radius - VERTICAL_ACCELERATION * delta, MIN_RADIUS, MAX_RADIUS)
 	else:
-		curr_radius = clamp(curr_radius + VERTICAL_ACCELERATION * delta, MIN_RADIUS, MAX_RADIUS)
+		curr_radius = clamp(curr_radius + VERTICAL_ACCELERATION * delta * 0.7, MIN_RADIUS, MAX_RADIUS)
 
 	if Input.is_action_just_pressed("drop"):
 		_drop_baby()
