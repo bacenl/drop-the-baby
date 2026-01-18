@@ -131,8 +131,10 @@ func _lost() -> void:
 	if is_collected:
 		_reparent_to_earth.call_deferred()
 		if current_zone == 0:
+			Global.baby_ocean.emit() # bad coding practice here
 			_spawn_effect.call_deferred(BabyEffect.BabyOutcomes.Sea)
 		else:
+			Global.baby_land_lost.emit()
 			_spawn_effect.call_deferred(BabyEffect.BabyOutcomes.Bad)
 	elif is_burning and burn_material:
 		_reparent_to_earth.call_deferred()

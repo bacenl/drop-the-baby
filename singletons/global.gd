@@ -19,6 +19,8 @@ signal reputation_changed(new_reputation: int)
 
 # Baby signals
 signal baby_spawn
+signal baby_ocean
+signal baby_land_lost
 signal baby_collected
 signal baby_dropped
 signal baby_success

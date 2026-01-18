@@ -75,32 +75,44 @@ horizontal_alignment = 2
 [node name="Middle" type="Control" parent="."]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="Middle"]
+[node name="ColorRect" type="ColorRect" parent="Middle"]
+layout_mode = 0
+offset_left = 341.0
+offset_top = 215.0
+offset_right = 813.0
+offset_bottom = 404.0
+color = Color(0.044506766, 0.013339454, 0.15262637, 0.72156864)
+
+[node name="Control" type="Control" parent="Middle/ColorRect"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -104.0
-offset_right = 104.0
+offset_left = -117.5
+offset_top = 98.0
+offset_right = 90.5
+offset_bottom = 98.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CurrentFinalScore" type="Label" parent="Middle/Control"]
+[node name="CurrentFinalScore" type="Label" parent="Middle/ColorRect/Control"]
 layout_mode = 0
-offset_top = -109.0
-offset_right = 208.0
-offset_bottom = -42.0
+offset_left = 13.0
+offset_top = -103.0
+offset_right = 221.0
+offset_bottom = -25.0
 theme_override_font_sizes/font_size = 48
 text = "Score: 50"
 horizontal_alignment = 1
 
-[node name="HighScore" type="Label" parent="Middle/Control"]
+[node name="HighScore" type="Label" parent="Middle/ColorRect/Control"]
 layout_mode = 0
-offset_top = -38.0
+offset_left = 23.5
+offset_top = -160.0
 offset_right = 208.0
-offset_bottom = -4.0
+offset_bottom = -120.0
 theme_override_font_sizes/font_size = 24
 text = "New high score!"
 horizontal_alignment = 1
@@ -138,7 +150,7 @@ text = "First in line:"
 layout_mode = 2
 
 [node name="NextColor" type="TextureRect" parent="TopLeft/CurrentScoreWrapper"]
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 texture = ExtResource("4_fce62")
 expand_mode = 3
@@ -146,4 +158,5 @@ flip_h = true
 
 [node name="Capacity" type="Label" parent="TopLeft"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "Capacity: 0 / 5"

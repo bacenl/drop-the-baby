@@ -11,8 +11,8 @@ extends Control
 
 @onready var current_score_label: Label = $TopRight/CurrentScoreWrapper/CurrentScore
 @onready var score_thumb: TextureRect = $TopRight/CurrentScoreWrapper/ScoreThumb
-@onready var current_final_score_label: Label = $Middle/Control/CurrentFinalScore
-@onready var high_score_label: Label = $Middle/Control/HighScore
+@onready var current_final_score_label: Label = $Middle/ColorRect/Control/CurrentFinalScore
+@onready var high_score_label: Label = $Middle/ColorRect/Control/HighScore
 
 @onready var next_duck: TextureRect = $TopLeft/CurrentScoreWrapper/NextColor
 @onready var capacity_label: Label = $TopLeft/Capacity
