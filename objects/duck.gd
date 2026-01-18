@@ -49,7 +49,7 @@ func _physics_process(delta: float) -> void:
 	# speed interpolation: faster when closer (min radius), slower when farther (max radius)
 	var t = (curr_radius - MIN_RADIUS) / (MAX_RADIUS - MIN_RADIUS)
 	curr_speed = lerp(10.0, 8.0, t)
-	theta_rad += curr_speed / curr_radius # omega = v/r, theta = theta_0 + d_omega * t
+	theta_rad += curr_speed / curr_radius * 60 * delta # omega = v/r, theta = theta_0 + d_omega * t
 	position.x = curr_radius * sin(theta_rad)
 	position.y = -curr_radius * cos(theta_rad)
 
