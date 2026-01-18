@@ -51,6 +51,8 @@ func add_baby(baby: Baby) -> void:
 	if baby_array.size() >= BABY_CAPACITY:
 		return
 
+	Global.baby_collected.emit()
+
 	baby_array.append(baby)
 	baby.get_parent().remove_child(baby)
 	self.add_child(baby)
@@ -68,6 +70,8 @@ func add_baby(baby: Baby) -> void:
 func _drop_baby() -> void:
 	if baby_array.is_empty():
 		return
+
+	Global.baby_dropped.emit()
 
 	var baby = baby_array.pop_front()
 	var global_pos = baby.global_position

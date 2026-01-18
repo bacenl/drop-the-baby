@@ -18,8 +18,9 @@ signal high_score_changed(new_high_score: int)
 signal reputation_changed(new_reputation: int)
 
 # Baby signals
-signal baby_collected(baby: Baby)
-signal baby_dropped(baby: Baby)
+signal baby_spawn
+signal baby_collected
+signal baby_dropped
 signal baby_success
 signal baby_lost
 
@@ -31,9 +32,6 @@ signal capacity_changed(count: int)
 enum GameState { MAIN_MENU, PLAYING, PAUSED, GAME_OVER }
 var current_state: GameState = GameState.MAIN_MENU
 
-# Audio
-var main_menu_audio = load("res://resources/sounds/bgm/menu.mp3")
-var in_game_audio = load("res://resources/sounds/bgm/in_game.mp3")
 
 # Control variables (read-only, updated by state functions)
 var game_is_started: bool = false
@@ -98,9 +96,6 @@ func go_to_main_menu() -> void:
 
 # Signal callbacks
 func _on_game_started() -> void:
-	Audio.audio_stream_player.stream = in_game_audio
-	Audio.audio_stream_player.play()
-
 	score = 0
 	reputation = MAX_REPUTATION
 	current_state = GameState.PLAYING
@@ -109,9 +104,6 @@ func _on_game_started() -> void:
 
 
 func _on_game_ended(final_score: int) -> void:
-	Audio.audio_stream_player.stream = main_menu_audio
-	Audio.audio_stream_player.play()
-
 	if final_score >= 0:
 		score = final_score
 

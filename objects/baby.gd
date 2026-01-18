@@ -39,6 +39,7 @@ var is_resolved: bool = false
 func _ready() -> void:
 	add_to_group("babies")
 	area2d.connect("area_entered", _on_area_entered)
+	Global.baby_spawn.emit()
 
 	_set_target_zone()
 
@@ -183,7 +184,6 @@ func _on_area_entered(area: Area2D):
 	
 	if not is_collected:
 		if area.is_in_group("duck"):
-			Global.baby_collected.emit(self)
 			line.hide()
 			duck.add_baby.call_deferred(self)
 			return
