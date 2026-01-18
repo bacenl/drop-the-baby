@@ -72,8 +72,11 @@ func _on_game_started() -> void:
 
 
 func _on_game_ended(_score: int) -> void:
-	# Let babies naturally fall and die - only force clear on new game start
-	pass
+	# Free babies that are outside the screen
+	var viewport_rect = get_viewport().get_visible_rect()
+	for baby in get_tree().get_nodes_in_group("babies"):
+		if not viewport_rect.has_point(baby.global_position):
+			baby.queue_free()
 
 
 func _clear_all_babies() -> void:

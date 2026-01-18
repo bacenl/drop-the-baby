@@ -226,13 +226,9 @@ func _on_area_entered(area: Area2D):
 			return
 	
 	if area.is_in_group("zones"):
-		# print(area.get_groups())
-		# in case collides with multiple areas
-		if current_zone == target_zone:
-			_success()
-			return
-		
-		# for land animation
+		# dont success immediately, so duck has time to fall onto surface of earth
+		# else floats sometimes
+		# Track which zone the baby is in (for when it hits earth)
 		if (area.check_zone() > 0):
 			current_zone = area.check_zone()
 		return
