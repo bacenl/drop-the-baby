@@ -142,7 +142,7 @@ func _success() -> void:
 	is_resolved = true
 	Global.baby_success.emit()
 	is_falling = false
-	line.hide()
+	line.hide()	
 	if is_collected:
 		_reparent_to_earth.call_deferred()
 		_spawn_effect.call_deferred(BabyEffect.BabyOutcomes.Good)
@@ -207,8 +207,8 @@ func _on_area_entered(area: Area2D):
 		if current_zone == 0:
 			for zone in get_tree().get_nodes_in_group("zones"):
 				if area2d.overlaps_area(zone):
-					current_zone = zone.check_zone()
-					break
+					if (current_zone != target_zone):
+						current_zone = zone.check_zone()
 
 		if current_zone == target_zone and is_collected:
 			_success()
@@ -229,6 +229,6 @@ func _on_area_entered(area: Area2D):
 		# dont success immediately, so duck has time to fall onto surface of earth
 		# else floats sometimes
 		# Track which zone the baby is in (for when it hits earth)
-		if (area.check_zone() > 0):
+		if (area.check_zone() > 0 and current_zone != target_zone):
 			current_zone = area.check_zone()
 		return
