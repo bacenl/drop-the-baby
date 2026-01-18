@@ -7,7 +7,8 @@
 [ext_resource type="Material" uid="uid://cb1g6eudnmxra" path="res://resources/shaders/baby_trail_galactic_material.tres" id="4_uxe4x"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uxe4x"]
-height = 40.0
+radius = 15.0
+height = 55.0
 
 [node name="Baby" type="Node2D"]
 material = ExtResource("1_gepct")
@@ -16,7 +17,7 @@ script = ExtResource("1_nuvtx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = ExtResource("2_atoqb")
-position = Vector2(6, -6)
+position = Vector2(6, -8)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("2_nuvtx")
 

@@ -16,6 +16,7 @@ signal high_score_changed(new_high_score: int)
 
 # Reputation signals
 signal reputation_changed(new_reputation: int)
+signal ten_points
 
 # Baby signals
 signal baby_spawn
@@ -152,6 +153,13 @@ func set_score(new_score: int) -> void:
 func _on_baby_success() -> void:
 	score += 1
 	score_changed.emit(score)
+
+	# Restore 1 reputation at every multiple of 10 if not at max
+	if score % 2 == 0:
+		ten_points.emit()
+		if reputation < MAX_REPUTATION:
+			reputation += 1
+			reputation_changed.emit(reputation)
 
 
 func _on_baby_lost() -> void:

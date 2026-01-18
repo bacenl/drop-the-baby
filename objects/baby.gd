@@ -13,6 +13,7 @@ var color_textures = [
 ]
 
 var fire_material = preload("res://resources/shaders/fire_material.tres")
+var burning_sound = preload("res://resources/sounds/sfx/burning.wav")
 
 @onready
 var sprite: Sprite2D = $'Sprite2D'
@@ -34,6 +35,12 @@ var rng = RandomNumberGenerator.new()
 var is_burning: bool = false
 var burn_material: ShaderMaterial
 var is_resolved: bool = false
+var burn_audio_player: AudioStreamPlayer2D
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PREDELETE:
+		_stop_burn_audio()
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -50,9 +57,9 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	if is_falling:
+		_update_rotation()
 		position += delta * fall_direction * fall_speed
 		_update_burning()
-		_update_rotation()
 	_sample_line_texture()
 
 
@@ -72,6 +79,14 @@ func _update_burning() -> void:
 	# Start burning when past duck's max radius
 	if distance_from_center < duck.MAX_RADIUS and not is_burning:
 		is_burning = true
+		# Start burning audio at 20% volume
+		burn_audio_player = AudioStreamPlayer2D.new()
+		burn_audio_player.stream = burning_sound
+		burn_audio_player.bus = "SFX"
+		burn_audio_player.volume_db = linear_to_db(0.5)
+		add_child(burn_audio_player)
+		burn_audio_player.play()
+
 		var original_material = sprite.material
 		burn_material = fire_material.duplicate()
 		# Copy tint parameters from original material
@@ -91,6 +106,10 @@ func _update_burning() -> void:
 		var burn_progress = clamp(distance_from_center / duck.MAX_RADIUS, 0.0, 1.0)
 		burn_material.set_shader_parameter("y_position_2", burn_progress)
 		burn_material.set_shader_parameter("transparency", 1.0)
+		# Volume: 50% at MAX_RADIUS (burn_progress=1.0) to 100% at origin (burn_progress=0.0)
+		# linear_to_db converts linear volume (0.0-1.0) to decibels
+		var volume_linear = lerp(1.0, 0.5, burn_progress)
+		burn_audio_player.volume_db = linear_to_db(volume_linear)
 	
 
 func _set_target_zone() -> void:
@@ -103,6 +122,14 @@ func reset_burn() -> void:
 		is_burning = false
 		sprite.material = color_textures[target_zone - 1]
 		burn_material = null
+		_stop_burn_audio()
+
+
+func _stop_burn_audio() -> void:
+	if burn_audio_player:
+		burn_audio_player.stop()
+		burn_audio_player.queue_free()
+		burn_audio_player = null
 
 
 func _sample_line_texture() -> void:
@@ -115,6 +142,7 @@ func _success() -> void:
 	is_resolved = true
 	Global.baby_success.emit()
 	is_falling = false
+	line.hide()
 	if is_collected:
 		_reparent_to_earth.call_deferred()
 		_spawn_effect.call_deferred(BabyEffect.BabyOutcomes.Good)
@@ -128,6 +156,7 @@ func _lost() -> void:
 	is_resolved = true
 	Global.baby_lost.emit()
 	is_falling = false
+	line.hide()
 	if is_collected:
 		_reparent_to_earth.call_deferred()
 		if current_zone == 0:
@@ -171,6 +200,9 @@ func _set_burn_transparency(value: float) -> void:
 
 func _on_area_entered(area: Area2D):
 	if area.is_in_group("earth"):
+		# Max volume when touching earth
+		if burn_audio_player:
+			burn_audio_player.volume_db = linear_to_db(1.0)
 		# Check for zone overlap before deciding it's sea
 		if current_zone == 0:
 			for zone in get_tree().get_nodes_in_group("zones"):
@@ -194,13 +226,13 @@ func _on_area_entered(area: Area2D):
 			return
 	
 	if area.is_in_group("zones"):
-		print(area.get_groups())
+		# print(area.get_groups())
 		# in case collides with multiple areas
-		print(area, area.has_method("check_zone"))
 		if current_zone == target_zone:
 			_success()
 			return
 		
 		# for land animation
-		current_zone = area.check_zone()
+		if (area.check_zone() > 0):
+			current_zone = area.check_zone()
 		return

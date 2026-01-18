@@ -71,7 +71,8 @@ func _on_game_started() -> void:
 
 
 func _on_game_ended(_score: int) -> void:
-	_clear_all_babies()
+	# Let babies naturally fall and die - only force clear on new game start
+	pass
 
 
 func _clear_all_babies() -> void:

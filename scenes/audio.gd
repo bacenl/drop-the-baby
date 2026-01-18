@@ -22,6 +22,7 @@ var drop = load("res://resources/sounds/sfx/drop.wav")
 var success = load("res://resources/sounds/sfx/success.mp3")
 var lost = load("res://resources/sounds/sfx/lost.wav")
 var ten_points = load("res://resources/sounds/sfx/10_points.mp3")
+var game_end = load("res://resources/sounds/sfx/game_end.mp3")
 
 func _ready() -> void:
 	if not bgm_player:
@@ -30,14 +31,14 @@ func _ready() -> void:
 		bgm_player.bus = "Master"
 		add_child(bgm_player)
 		play_bgm(main_menu_audio)
-	
+
 	for i in range(MAX_SFX_PLAYERS):
 		var sfx_player = AudioStreamPlayer2D.new()
 		sfx_player.name = "SFXPlayer" + str(i)
 		sfx_player.bus = "SFX"
 		add_child(sfx_player)
 		sfx_players.append(sfx_player)
-	
+
 	Global.game_started.connect(_on_game_started)
 	Global.game_ended.connect(_on_game_ended)
 	Global.baby_success.connect(_on_baby_success)
@@ -46,6 +47,7 @@ func _ready() -> void:
 	Global.baby_land_lost.connect(_on_baby_land_lost)
 	Global.baby_spawn.connect(_on_baby_spawn)
 	Global.baby_ocean.connect(_on_baby_ocean)
+	Global.ten_points.connect(_on_ten_points)
 
 
 func _process(delta: float) -> void:
@@ -59,13 +61,14 @@ func _on_game_started() -> void:
 		player.volume_db = 0.0
 	play_bgm(in_game_audio)
 
-func _on_game_ended(final_score: int) -> void:
+func _on_game_ended(_final_score: int) -> void:
 	# Start fading out all SFX
 	is_fading_sfx = true
+	play_sfx(game_end)
 	play_bgm(main_menu_audio)
 
 func _on_baby_spawn () -> void:
-	play_sfx(burning)
+	pass
 
 func _on_baby_success() -> void:
 	play_sfx(success)
@@ -82,6 +85,9 @@ func _on_baby_dropped() -> void:
 func _on_baby_land_lost() -> void:
 	play_sfx(lost)
 
+func _on_ten_points() -> void:
+	play_sfx(ten_points)
+
 func play_bgm(resource: AudioStream) -> void:
 	bgm_player.stream = resource
 	bgm_player.play()
@@ -92,13 +98,13 @@ func play_sfx(resource: AudioStream) -> void:
 			player.stream = resource
 			player.play()
 			return
-	
+
 	sfx_players[0].stream = resource
 	sfx_players[0].play()
-	
+
 func _handle_sfx_fade(delta: float) -> void:
 	var all_stopped = true
-	
+
 	for player in sfx_players:
 		if player.playing:
 			all_stopped = false
@@ -106,12 +112,12 @@ func _handle_sfx_fade(delta: float) -> void:
 			# -60 db is essentially silent
 			var volume_decrease = (60.0 / SFX_FADE_OUT_DURATION) * delta
 			player.volume_db -= volume_decrease
-			
+
 			# Stop the player if volume is very low
 			if player.volume_db <= -60.0:
 				player.stop()
 				player.volume_db = 0.0  # Reset for next use
-	
+
 	# Stop fading when all players have stopped
 	if all_stopped:
 		is_fading_sfx = false

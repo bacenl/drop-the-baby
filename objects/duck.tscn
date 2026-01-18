@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bn1etx4bqluq7"]
+[gd_scene load_steps=14 format=3 uid="uid://bn1etx4bqluq7"]
 
 [ext_resource type="Script" uid="uid://n0un4xs0epse" path="res://objects/duck.gd" id="1_flsqi"]
 [ext_resource type="SpriteFrames" uid="uid://cpgoli2c4qhsu" path="res://resources/art/duck_body_frames.tres" id="3_3egj8"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bm72teo0hnmqr" path="res://resources/art/jail.png" id="5_i0eqt"]
 [ext_resource type="Texture2D" uid="uid://bic3pomm3cukv" path="res://resources/art/jail_left_wing.png" id="6_sc36k"]
 [ext_resource type="Texture2D" uid="uid://by1jjc5huxuu8" path="res://resources/art/jail_right_wing.png" id="7_5k7x0"]
+[ext_resource type="Material" uid="uid://cb1g6eudnmxra" path="res://resources/shaders/baby_trail_galactic_material.tres" id="8_trail"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ka7s4"]
 viewport_path = NodePath("DuckTexture/SubViewport")
@@ -153,6 +154,7 @@ script = ExtResource("1_flsqi")
 
 [node name="DuckTexture" type="Sprite2D" parent="."]
 material = ExtResource("3_ka7s4")
+position = Vector2(0, -12)
 texture = SubResource("ViewportTexture_ka7s4")
 
 [node name="SubViewport" type="SubViewport" parent="DuckTexture"]
@@ -161,6 +163,7 @@ size = Vector2i(2048, 2048)
 
 [node name="DuckContainer" type="Node2D" parent="DuckTexture/SubViewport"]
 position = Vector2(1024, 1024)
+rotation = 0.08726646
 scale = Vector2(0.1, 0.1)
 
 [node name="AnimatedBody" type="AnimatedSprite2D" parent="DuckTexture/SubViewport/DuckContainer"]
@@ -195,3 +198,11 @@ texture = ExtResource("6_sc36k")
 
 [node name="JailRightWing" type="Sprite2D" parent="Jail"]
 texture = ExtResource("7_5k7x0")
+
+[node name="Line2D" type="Line2D" parent="."]
+z_index = -10
+material = ExtResource("8_trail")
+width = 50.0
+texture_mode = 2
+joint_mode = 2
+begin_cap_mode = 2

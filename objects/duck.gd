@@ -1,11 +1,11 @@
 class_name Duck
 extends Node2D
 
-var BASE_SPEED: float = 10
+var BASE_SPEED: float = 8
 var BABY_CAPACITY: float = 5
 var VERTICAL_ACCELERATION: float = 500
 var MIN_RADIUS: float = 150
-var MAX_RADIUS: float = 250
+var MAX_RADIUS: float = 265
 
 var curr_radius: float
 var curr_speed: float
@@ -18,6 +18,12 @@ var baby_array: Array[Baby]= []
 
 @onready var jail: Node2D = $Jail
 @onready var jail_animation: AnimationPlayer = $Jail/AnimationPlayer
+@onready var line: Line2D = $Line2D
+
+var TRAIL_POINT_COUNT: int = 30
+var TRAIL_POINT_LIFETIME: float = 0.5
+var trail_points: Array[Dictionary] = []  # {position: Vector2, age: float}
+var trail_fading: bool = false
 
 func _ready() -> void:
 	position = Vector2(0, -MIN_RADIUS)
@@ -31,11 +37,17 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	# Always update trail so it can fade out after game ends
+	_update_trail(delta)
+
 	if not Global.is_playing():
 		return
 	_handle_input(delta)
 
 	rotation = theta_rad
+	# speed interpolation: faster when closer (min radius), slower when farther (max radius)
+	var t = (curr_radius - MIN_RADIUS) / (MAX_RADIUS - MIN_RADIUS)
+	curr_speed = lerp(10.0, 8.0, t)
 	theta_rad += curr_speed / curr_radius # omega = v/r, theta = theta_0 + d_omega * t
 	position.x = curr_radius * sin(theta_rad)
 	position.y = -curr_radius * cos(theta_rad)
@@ -90,6 +102,8 @@ func _drop_baby() -> void:
 
 
 func _update_baby_positions() -> void:
+	# Filter out any freed babies first
+	baby_array = baby_array.filter(func(baby): return is_instance_valid(baby))
 	for i in range(baby_array.size()):
 		baby_array[i].position = Vector2(local_x_offset_array[i],local_y_offset_array[i])
 
@@ -108,6 +122,7 @@ func _on_game_ended(_score: int) -> void:
 	_drop_all_babies.call_deferred()
 	jail.show()
 	jail_animation.play("jail_duck")
+	trail_fading = true
 
 
 func _drop_all_babies() -> void:
@@ -126,8 +141,34 @@ func _drop_all_babies() -> void:
 func _on_game_started() -> void:
 	jail.hide()
 	jail_animation.stop()
+	trail_points.clear()
+	line.points = []
+	trail_fading = false
 
 
 func _on_return_to_main_menu() -> void:
 	jail.hide()
 	jail_animation.stop()
+
+
+func _update_trail(delta: float) -> void:
+	# Only add new points when not fading
+	if not trail_fading:
+		trail_points.push_front({"position": global_position, "age": 0.0})
+
+		# Limit the number of stored positions
+		if trail_points.size() > TRAIL_POINT_COUNT:
+			trail_points.resize(TRAIL_POINT_COUNT)
+
+	# Age all points and remove expired ones
+	for i in range(trail_points.size() - 1, -1, -1):
+		trail_points[i].age += delta
+		if trail_points[i].age >= TRAIL_POINT_LIFETIME:
+			trail_points.remove_at(i)
+
+	# Convert global positions to local positions (compensating for duck's rotation)
+	var local_points: PackedVector2Array = []
+	for point in trail_points:
+		local_points.append(to_local(point.position))
+
+	line.points = local_points

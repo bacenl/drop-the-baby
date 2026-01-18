@@ -66,6 +66,7 @@ text = "60"
 
 [node name="Instructions" type="Label" parent="TopRight"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "Hold <Space> to dip down
 Press <D> to drop baby
 Catch babies before they burn
@@ -142,6 +143,11 @@ horizontal_alignment = 1
 [node name="TopLeft" type="VBoxContainer" parent="."]
 layout_mode = 2
 
+[node name="Capacity" type="Label" parent="TopLeft"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Capacity: 0 / 5"
+
 [node name="FirstInLineDummyText" type="Label" parent="TopLeft"]
 layout_mode = 2
 text = "First in line:"
@@ -155,8 +161,3 @@ layout_mode = 2
 texture = ExtResource("4_fce62")
 expand_mode = 3
 flip_h = true
-
-[node name="Capacity" type="Label" parent="TopLeft"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "Capacity: 0 / 5"

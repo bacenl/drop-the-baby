@@ -145,7 +145,7 @@ script = ExtResource("4_jyhfs")
 [node name="CollisionZone3" type="CollisionPolygon2D" parent="Earth/Zone3"]
 rotation = -3.1415925
 scale = Vector2(0.15, 0.15)
-polygon = PackedVector2Array(180.00008, 513.3333, -4.347826, 0, -273.33325, 480.00003, -53.33325, 553.3333)
+polygon = PackedVector2Array(180.00008, 513.3333, 0, 0, -273.33325, 480.00003, -53.33325, 553.3333)
 
 [node name="Zone4" type="Area2D" parent="Earth" groups=["zones"]]
 script = ExtResource("4_jyhfs")

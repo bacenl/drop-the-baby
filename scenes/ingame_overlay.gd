@@ -28,6 +28,11 @@ var color_textures = [
 	preload("res://resources/shaders/preset_colors/color_6.tres"),
 ]
 
+var _score_scale_material: ShaderMaterial = preload("res://resources/shaders/ui_scale_material.tres")
+var _thumb_scale_material: ShaderMaterial
+var _can_restart := false
+var _previous_reputation := 0
+
 
 func _ready() -> void:
 	Global.game_started.connect(_on_game_started)
@@ -46,6 +51,8 @@ func _ready() -> void:
 
 
 func _on_game_started() -> void:
+	_can_restart = false
+	_previous_reputation = Global.MAX_REPUTATION
 	middle.hide()
 	top_right.show()
 	top_left.show()
@@ -73,6 +80,7 @@ func _on_game_ended(_final_score: int) -> void:
 	middle.show()
 	var tween = create_tween()
 	tween.tween_property(middle, "modulate:a", 1.0, 0.5)
+	tween.finished.connect(func(): _can_restart = true)
 
 
 func _on_score_changed(new_score: int) -> void:
@@ -81,6 +89,9 @@ func _on_score_changed(new_score: int) -> void:
 
 
 func _on_reputation_changed(new_reputation: int) -> void:
+	if new_reputation < _previous_reputation:
+		_animate_health_pop(new_reputation)
+	_previous_reputation = new_reputation
 	_update_reputation(new_reputation)
 
 
@@ -114,22 +125,32 @@ func _animate_score_pop() -> void:
 	var scale_amount := 1.3
 	var duration := 0.15
 
-	# Set pivot to center for both elements
-	score_thumb.pivot_offset = score_thumb.size / 2
-	current_score_label.pivot_offset = current_score_label.size / 2
+	# Apply shader material for scale effect (works around container layout limitations)
+	current_score_label.material = _score_scale_material
 
-	# Animate scale up then back down
 	var tween = create_tween()
-	tween.set_parallel(true)
-	tween.tween_property(score_thumb, "scale", Vector2(scale_amount, scale_amount), duration)
-	tween.tween_property(current_score_label, "scale", Vector2(scale_amount, scale_amount), duration)
-	tween.chain().set_parallel(true)
-	tween.tween_property(score_thumb, "scale", Vector2.ONE, duration)
-	tween.tween_property(current_score_label, "scale", Vector2.ONE, duration)
+	tween.tween_property(_score_scale_material, "shader_parameter/scale", scale_amount, duration)
+	tween.tween_property(_score_scale_material, "shader_parameter/scale", 1.0, duration)
+
+
+func _animate_health_pop(remaining_health: int) -> void:
+	var scale_amount := 1.3
+	var duration := 0.15
+
+	# Create a new material instance for the health animation
+	_thumb_scale_material = preload("res://resources/shaders/ui_scale_material.tres").duplicate()
+
+	# Apply to all remaining visible thumbs
+	for i in range(remaining_health):
+		thumbs[i].material = _thumb_scale_material
+
+	var tween = create_tween()
+	tween.tween_property(_thumb_scale_material, "shader_parameter/scale", scale_amount, duration)
+	tween.tween_property(_thumb_scale_material, "shader_parameter/scale", 1.0, duration)
 
 
 func _input(event: InputEvent) -> void:
-	if Global.is_game_over():
+	if Global.is_game_over() and _can_restart:
 		if event.is_action_pressed("accelerate"):
 			Global.start_game()
 		elif event.is_action_pressed("ui_cancel"):
