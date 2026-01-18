@@ -26,6 +26,7 @@ var trail_points: Array[Dictionary] = []  # {position: Vector2, age: float}
 var trail_fading: bool = false
 
 func _ready() -> void:
+	add_to_group("duck_player")
 	position = Vector2(0, -MIN_RADIUS)
 	curr_radius = MIN_RADIUS
 	curr_speed = BASE_SPEED

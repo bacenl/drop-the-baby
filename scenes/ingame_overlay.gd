@@ -62,7 +62,7 @@ func _on_game_started() -> void:
 
 
 func _on_game_ended(_final_score: int) -> void:
-	top_right.hide()
+	# top_right.hide()
 	top_left.hide()
 
 	var score := Global.score

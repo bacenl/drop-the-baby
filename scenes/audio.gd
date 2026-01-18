@@ -21,7 +21,7 @@ var collect = load("res://resources/sounds/sfx/collect.wav")
 var drop = load("res://resources/sounds/sfx/drop.wav")
 var success = load("res://resources/sounds/sfx/success.mp3")
 var lost = load("res://resources/sounds/sfx/lost.wav")
-var ten_points = load("res://resources/sounds/sfx/10_points.mp3")
+var five_points = load("res://resources/sounds/sfx/five_points.mp3")
 var game_end = load("res://resources/sounds/sfx/game_end.mp3")
 
 func _ready() -> void:
@@ -47,7 +47,7 @@ func _ready() -> void:
 	Global.baby_land_lost.connect(_on_baby_land_lost)
 	Global.baby_spawn.connect(_on_baby_spawn)
 	Global.baby_ocean.connect(_on_baby_ocean)
-	Global.ten_points.connect(_on_ten_points)
+	Global.five_points.connect(_on_five_points)
 
 
 func _process(delta: float) -> void:
@@ -85,8 +85,8 @@ func _on_baby_dropped() -> void:
 func _on_baby_land_lost() -> void:
 	play_sfx(lost)
 
-func _on_ten_points() -> void:
-	play_sfx(ten_points)
+func _on_five_points() -> void:
+	play_sfx(five_points)
 
 func play_bgm(resource: AudioStream) -> void:
 	bgm_player.stream = resource

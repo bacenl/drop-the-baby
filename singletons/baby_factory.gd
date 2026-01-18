@@ -42,7 +42,8 @@ func _physics_process(delta: float) -> void:
 func _spawn_baby() -> void:
 	var instance = baby_resource.instantiate()
 
-	var spawn_angle = randf_range(0, TAU)  # TAU = 2*PI (full circle in radians)
+	# Get spawn angle avoiding ±45 degrees of the duck's position
+	var spawn_angle = _get_safe_spawn_angle()
 	var spawn_x = spawn_radius * cos(spawn_angle)
 	var spawn_y = spawn_radius * sin(spawn_angle)
 
@@ -85,3 +86,36 @@ func _clear_all_babies() -> void:
 
 func _on_score_changed(new_score: int) -> void:
 	current_spawn_interval = _calculate_difficulty(new_score)
+
+
+func _get_safe_spawn_angle() -> float:
+	# Try to get the duck's position to avoid spawning near it
+	var duck = get_tree().get_first_node_in_group("duck_player")
+	if duck == null:
+		# Fallback: find duck by class name
+		for node in get_tree().get_nodes_in_group(""):
+			if node is Duck:
+				duck = node
+				break
+
+	if duck == null:
+		# No duck found, spawn anywhere
+		return randf_range(0, TAU)
+
+	# Calculate duck's angle from origin (atan2 returns angle from positive X axis)
+	var duck_angle = atan2(duck.global_position.y, duck.global_position.x)
+
+	# Exclusion zone: ±45 degrees (PI/4 radians) around duck
+	var exclusion_half = PI / 4.0
+
+	# Generate angle in the safe zone (270 degrees = 3*PI/2 radians)
+	var safe_range = TAU - (2 * exclusion_half)  # Total safe range
+	var random_offset = randf_range(0, safe_range)
+
+	# Start from just after the exclusion zone ends
+	var spawn_angle = duck_angle + exclusion_half + random_offset
+
+	# Normalize to [0, TAU)
+	spawn_angle = fmod(spawn_angle + TAU, TAU)
+
+	return spawn_angle

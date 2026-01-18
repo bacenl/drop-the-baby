@@ -77,12 +77,19 @@ horizontal_alignment = 2
 layout_mode = 2
 
 [node name="ColorRect" type="ColorRect" parent="Middle"]
-layout_mode = 0
-offset_left = 341.0
-offset_top = 215.0
-offset_right = 813.0
-offset_bottom = 404.0
-color = Color(0.044506766, 0.013339454, 0.15262637, 0.72156864)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -236.0
+offset_top = -94.5
+offset_right = 236.0
+offset_bottom = 94.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.043137256, 0.011764706, 0.15294118, 0.43529412)
 
 [node name="Control" type="Control" parent="Middle/ColorRect"]
 layout_mode = 1
